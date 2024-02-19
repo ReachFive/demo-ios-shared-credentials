@@ -13,6 +13,7 @@
 		2A2192A12B83A7CC00DDF153 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A21929F2B83A7CC00DDF153 /* Main.storyboard */; };
 		2A2192A32B83A7CE00DDF153 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A2192A22B83A7CE00DDF153 /* Assets.xcassets */; };
 		2A2192A62B83A7CE00DDF153 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A2192A42B83A7CE00DDF153 /* LaunchScreen.storyboard */; };
+		2ACBCE982B83D22E0059D5F9 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACBCE972B83D22E0059D5F9 /* SecureStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		2A2192A52B83A7CE00DDF153 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2A2192A72B83A7CE00DDF153 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2ACBCE922B83C3350059D5F9 /* DemoSharedCredentials.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DemoSharedCredentials.entitlements; sourceTree = "<group>"; };
+		2ACBCE972B83D22E0059D5F9 /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +60,14 @@
 			isa = PBXGroup;
 			children = (
 				2ACBCE922B83C3350059D5F9 /* DemoSharedCredentials.entitlements */,
+				2A2192A72B83A7CE00DDF153 /* Info.plist */,
 				2A2192992B83A7CC00DDF153 /* AppDelegate.swift */,
 				2A21929B2B83A7CC00DDF153 /* SceneDelegate.swift */,
+				2ACBCE972B83D22E0059D5F9 /* SecureStorage.swift */,
 				2A21929D2B83A7CC00DDF153 /* ViewController.swift */,
-				2A21929F2B83A7CC00DDF153 /* Main.storyboard */,
 				2A2192A22B83A7CE00DDF153 /* Assets.xcassets */,
 				2A2192A42B83A7CE00DDF153 /* LaunchScreen.storyboard */,
-				2A2192A72B83A7CE00DDF153 /* Info.plist */,
+				2A21929F2B83A7CC00DDF153 /* Main.storyboard */,
 			);
 			path = DemoSharedCredentials;
 			sourceTree = "<group>";
@@ -142,6 +145,7 @@
 			files = (
 				2A21929E2B83A7CC00DDF153 /* ViewController.swift in Sources */,
 				2A21929A2B83A7CC00DDF153 /* AppDelegate.swift in Sources */,
+				2ACBCE982B83D22E0059D5F9 /* SecureStorage.swift in Sources */,
 				2A21929C2B83A7CC00DDF153 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
