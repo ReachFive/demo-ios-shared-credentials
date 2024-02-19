@@ -4,9 +4,13 @@ public class SecureStorage {
     public static let authKey = "AUTH_TOKEN"
     
     private let serviceName: String
+    private let group: String
     
-    public init() {
-        serviceName = Bundle.main.bundleIdentifier ?? "SandboxSecureStorage"
+    public init(group: String? = nil) {
+        serviceName = Bundle.main.bundleIdentifier ?? "DemoSecureStorage"
+        
+        self.group = group ?? (Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String) + (Bundle.main.bundleIdentifier!)
+        print(self.group)
     }
     
     public func save<D: Codable>(key: String, value: D) {
@@ -15,12 +19,13 @@ public class SecureStorage {
             return
         }
         
-        let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
-                                    kSecAttrAccount as String: key,
-                                    kSecAttrService as String: serviceName,
-                                    kSecValueData as String: data]
+        let attributes = [kSecClass: kSecClassGenericPassword,
+                          kSecAttrAccount: key,
+                          kSecAttrService: serviceName,
+                          kSecAttrAccessGroup: group,
+                          kSecValueData: data] as [String: Any]
         
-        let status = SecItemAdd(query as CFDictionary, nil)
+        let status = SecItemAdd(attributes as CFDictionary, nil)
         guard status == errSecSuccess else {
             if status == errSecDuplicateItem { // duplicate detected (code -25299). User did not log out before logging again
                 print("duplicate detected, updating data instead")
@@ -38,18 +43,20 @@ public class SecureStorage {
     }
     
     private func update<D: Codable>(key: String, value: D) {
-        let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
-                                    kSecAttrService as String: serviceName,
-                                    kSecAttrAccount as String: key]
+        let query: [String: Any] = [kSecClass: kSecClassGenericPassword,
+                                    kSecAttrService: serviceName,
+                                    kSecAttrAccessGroup: group,
+                                    kSecAttrAccount: key] as [String: Any]
         
         guard let data = try? JSONEncoder().encode(value) else {
             print(KeychainError.jsonSerializationError)
             return
         }
         
-        let attributes: [String: Any] = [kSecAttrAccount as String: key,
-                                         kSecAttrService as String: serviceName,
-                                         kSecValueData as String: data]
+        let attributes = [kSecAttrAccount: key,
+                          kSecAttrService: serviceName,
+                          kSecAttrAccessGroup: group,
+                          kSecValueData: data] as [String: Any]
         
         let status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
         guard status != errSecItemNotFound else {
@@ -71,15 +78,16 @@ public class SecureStorage {
     
     //TODO: implémenter un fonction spécifique pour AuthToken pour ne pas à avoir le problème de type et pour y mettre les notifs
     public func get<D: Codable>(key: String) -> D? {
-        let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
-                                    kSecAttrAccount as String: key,
-                                    kSecAttrService as String: serviceName,
-                                    kSecMatchLimit as String: kSecMatchLimitOne,
-                                    kSecReturnAttributes as String: false,
-                                    kSecReturnData as String: true]
+        let attributes: [String: Any] = [kSecClass: kSecClassGenericPassword,
+                                         kSecAttrAccount: key,
+                                         kSecAttrService: serviceName,
+                                         kSecAttrAccessGroup: group,
+                                         kSecMatchLimit: kSecMatchLimitOne,
+                                         kSecReturnAttributes: false,
+                                         kSecReturnData: true] as [String: Any]
         
         var item: CFTypeRef?
-        let status = SecItemCopyMatching(query as CFDictionary, &item)
+        let status = SecItemCopyMatching(attributes as CFDictionary, &item)
         guard status != errSecItemNotFound else {
             print(KeychainError.noToken)
             return nil
@@ -112,11 +120,12 @@ public class SecureStorage {
     }
     
     public func clear(key: String) {
-        let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
-                                    kSecAttrService as String: serviceName,
-                                    kSecAttrAccount as String: key]
+        let attributes: [String: Any] = [kSecClass: kSecClassGenericPassword,
+                                         kSecAttrService: serviceName,
+                                         kSecAttrAccessGroup: group,
+                                         kSecAttrAccount: key] as [String: Any]
         
-        let status = SecItemDelete(query as CFDictionary)
+        let status = SecItemDelete(attributes as CFDictionary)
         guard status == errSecSuccess || status == errSecItemNotFound else {
             print(KeychainError.unhandledError(status: status))
             return
