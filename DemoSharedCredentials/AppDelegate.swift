@@ -14,6 +14,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+/*
+        let local = SecureStorage()
+        let shared = SecureStorage(group: Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String + "com.reach5.SharedItems")
+        local.save(key: "key", value: "local")
+        local.save(key: "local", value: "local")
+        shared.save(key: "key", value: "shared")
+        shared.save(key: "shared", value: "shared")
+        print(local.get(key: "key") as String?)
+        print(local.get(key: "local") as String?)
+        print(local.get(key: "shared") as String?)
+        print(local.get(key: "external") as String?)
+        print(shared.get(key: "key") as String?)
+        print(shared.get(key: "local") as String?)
+        print(shared.get(key: "shared") as String?)
+        print(shared.get(key: "external") as String?)
+*/
         return true
     }
 
