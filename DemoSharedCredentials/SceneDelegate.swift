@@ -10,23 +10,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        
-        let tk: AuthToken = AuthToken(idToken: "toto", accessToken: "toto", refreshToken: "toto", tokenType: "toto", expiresIn: 100000, user: nil)
-//        AppDelegate.local.save(key: "token", value: tk)
-        if let token: AuthToken = AppDelegate.local.get(key: "token") {
-            print("did find token on application:didFinishLaunchingWithOptions:")
-            guard let profileController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Profile") as? ProfileViewController else {
-                print("did not find ProfileViewController")
-                return
-            }
-            
-            print("initialized profileController")
-            profileController.authToken = token
-            self.window?.rootViewController = profileController
-        } else {
-            print("token not found on application:didFinishLaunchingWithOptions:")
-        }
-        
         guard let _ = (scene as? UIWindowScene) else { return }
     }
     

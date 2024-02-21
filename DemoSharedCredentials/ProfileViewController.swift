@@ -50,6 +50,9 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func logout(_ sender: Any) {
+        print("logout(_:)")
         AppDelegate.local.clear(key: "token")
+        let login = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Login")
+        navigationController?.popViewController(animated: true)
     }
 }
