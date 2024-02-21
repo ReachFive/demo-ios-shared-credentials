@@ -15,6 +15,7 @@
 		2A2192A62B83A7CE00DDF153 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A2192A42B83A7CE00DDF153 /* LaunchScreen.storyboard */; };
 		2ACBCE982B83D22E0059D5F9 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACBCE972B83D22E0059D5F9 /* SecureStorage.swift */; };
 		2AED64E82B86218A00EB61DD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED64E72B86218A00EB61DD /* ProfileViewController.swift */; };
+		C487BC0E5EB404AFB7592CD6 /* Pods_DemoSharedCredentials.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE2554B8A9965298942EA612 /* Pods_DemoSharedCredentials.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,9 @@
 		2ACBCE922B83C3350059D5F9 /* DemoSharedCredentials.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DemoSharedCredentials.entitlements; sourceTree = "<group>"; };
 		2ACBCE972B83D22E0059D5F9 /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
 		2AED64E72B86218A00EB61DD /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		3A2CFEE1AE29C60B602632F6 /* Pods-DemoSharedCredentials.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoSharedCredentials.debug.xcconfig"; path = "Target Support Files/Pods-DemoSharedCredentials/Pods-DemoSharedCredentials.debug.xcconfig"; sourceTree = "<group>"; };
+		DE2554B8A9965298942EA612 /* Pods_DemoSharedCredentials.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoSharedCredentials.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECEA599E524CFD3822185E2C /* Pods-DemoSharedCredentials.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoSharedCredentials.release.xcconfig"; path = "Target Support Files/Pods-DemoSharedCredentials/Pods-DemoSharedCredentials.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C487BC0E5EB404AFB7592CD6 /* Pods_DemoSharedCredentials.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,6 +52,8 @@
 			children = (
 				2A2192982B83A7CC00DDF153 /* DemoSharedCredentials */,
 				2A2192972B83A7CC00DDF153 /* Products */,
+				EC2B2D280A67A15BC310F57A /* Pods */,
+				DA89C63F8F222258C44A8B68 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,6 +82,23 @@
 			path = DemoSharedCredentials;
 			sourceTree = "<group>";
 		};
+		DA89C63F8F222258C44A8B68 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DE2554B8A9965298942EA612 /* Pods_DemoSharedCredentials.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EC2B2D280A67A15BC310F57A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3A2CFEE1AE29C60B602632F6 /* Pods-DemoSharedCredentials.debug.xcconfig */,
+				ECEA599E524CFD3822185E2C /* Pods-DemoSharedCredentials.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -82,6 +106,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2A2192AA2B83A7CE00DDF153 /* Build configuration list for PBXNativeTarget "DemoSharedCredentials" */;
 			buildPhases = (
+				0A93F4B4CB5AB465F11ECB59 /* [CP] Check Pods Manifest.lock */,
 				2A2192922B83A7CC00DDF153 /* Sources */,
 				2A2192932B83A7CC00DDF153 /* Frameworks */,
 				2A2192942B83A7CC00DDF153 /* Resources */,
@@ -140,6 +165,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0A93F4B4CB5AB465F11ECB59 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DemoSharedCredentials-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2A2192922B83A7CC00DDF153 /* Sources */ = {
@@ -297,6 +347,7 @@
 		};
 		2A2192AB2B83A7CE00DDF153 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A2CFEE1AE29C60B602632F6 /* Pods-DemoSharedCredentials.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -330,6 +381,7 @@
 		};
 		2A2192AC2B83A7CE00DDF153 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ECEA599E524CFD3822185E2C /* Pods-DemoSharedCredentials.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
