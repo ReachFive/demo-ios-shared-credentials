@@ -7,9 +7,10 @@ public class SecureStorage {
     private let group: String
     
     public init(group: String? = nil) {
-        serviceName = Bundle.main.bundleIdentifier ?? "DemoSecureStorage"
+        let bundleId = "Shared"
+        serviceName = bundleId
         
-        self.group = group ?? (Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String) + (Bundle.main.bundleIdentifier!)
+        self.group = group ?? (Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String) + bundleId
         print(self.group)
     }
     
@@ -23,6 +24,7 @@ public class SecureStorage {
                           kSecAttrAccount: key,
                           kSecAttrService: serviceName,
                           kSecAttrAccessGroup: group,
+                          kSecAttrSynchronizable: true,
                           kSecValueData: data] as [String: Any]
         
         let status = SecItemAdd(attributes as CFDictionary, nil)
@@ -43,10 +45,11 @@ public class SecureStorage {
     }
     
     private func update<D: Codable>(key: String, value: D) {
-        let query: [String: Any] = [kSecClass: kSecClassGenericPassword,
-                                    kSecAttrService: serviceName,
-                                    kSecAttrAccessGroup: group,
-                                    kSecAttrAccount: key] as [String: Any]
+        let query = [kSecClass: kSecClassGenericPassword,
+                     kSecAttrService: serviceName,
+                     kSecAttrAccessGroup: group,
+                     kSecAttrSynchronizable: true,
+                     kSecAttrAccount: key] as [String: Any]
         
         guard let data = try? JSONEncoder().encode(value) else {
             print(KeychainError.jsonSerializationError)
@@ -56,6 +59,7 @@ public class SecureStorage {
         let attributes = [kSecAttrAccount: key,
                           kSecAttrService: serviceName,
                           kSecAttrAccessGroup: group,
+                          kSecAttrSynchronizable: true,
                           kSecValueData: data] as [String: Any]
         
         let status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
@@ -78,13 +82,14 @@ public class SecureStorage {
     
     //TODO: implémenter un fonction spécifique pour AuthToken pour ne pas à avoir le problème de type et pour y mettre les notifs
     public func get<D: Codable>(key: String) -> D? {
-        let attributes: [String: Any] = [kSecClass: kSecClassGenericPassword,
-                                         kSecAttrAccount: key,
-                                         kSecAttrService: serviceName,
-                                         kSecAttrAccessGroup: group,
-                                         kSecMatchLimit: kSecMatchLimitOne,
-                                         kSecReturnAttributes: false,
-                                         kSecReturnData: true] as [String: Any]
+        let attributes = [kSecClass: kSecClassGenericPassword,
+                          kSecAttrAccount: key,
+                          kSecAttrService: serviceName,
+                          kSecAttrAccessGroup: group,
+                          kSecAttrSynchronizable: true,
+                          kSecMatchLimit: kSecMatchLimitOne,
+                          kSecReturnAttributes: false,
+                          kSecReturnData: true] as [String: Any]
         
         var item: CFTypeRef?
         let status = SecItemCopyMatching(attributes as CFDictionary, &item)
@@ -123,6 +128,7 @@ public class SecureStorage {
         let attributes: [String: Any] = [kSecClass: kSecClassGenericPassword,
                                          kSecAttrService: serviceName,
                                          kSecAttrAccessGroup: group,
+                                         kSecAttrSynchronizable: true,
                                          kSecAttrAccount: key] as [String: Any]
         
         let status = SecItemDelete(attributes as CFDictionary)
