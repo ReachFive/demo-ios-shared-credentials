@@ -39,7 +39,6 @@
                                 <buttonConfiguration key="configuration" style="filled" title="Se connecter" cornerStyle="capsule"/>
                                 <connections>
                                     <action selector="connectWithToken:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kbc-0h-Q2O"/>
-                                    <segue destination="aY5-bS-epw" kind="show" id="Wwt-dK-nYg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOG-G6-lXB">
@@ -105,7 +104,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="E1L-wY-hlD" userLabel="Email text">
-                                <rect key="frame" x="151" y="123" width="129" height="20"/>
+                                <rect key="frame" x="151" y="119" width="129" height="20"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="QYc-7b-Nfx"/>
@@ -115,7 +114,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SqB-SY-ANa" userLabel="Phone Text">
-                                <rect key="frame" x="151" y="163" width="129" height="20"/>
+                                <rect key="frame" x="151" y="159" width="129" height="20"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="0g5-6h-fn1"/>
@@ -125,19 +124,19 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f6O-re-ZLY" userLabel="email label">
-                                <rect key="frame" x="19.999999999999996" y="123" width="40.666666666666657" height="20"/>
+                                <rect key="frame" x="19.999999999999996" y="119" width="40.666666666666657" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="phone number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUH-Ma-ZiV" userLabel="phone number label">
-                                <rect key="frame" x="20" y="163" width="111" height="20"/>
+                                <rect key="frame" x="20" y="159" width="111" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="GVt-wg-hM1" userLabel="login text">
-                                <rect key="frame" x="151" y="203" width="129" height="20"/>
+                                <rect key="frame" x="151" y="199" width="129" height="20"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="POj-4g-XKX"/>
@@ -147,13 +146,13 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="login summary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bln-VM-5Ck" userLabel="login summary field">
-                                <rect key="frame" x="20.000000000000007" y="203" width="110.66666666666669" height="20"/>
+                                <rect key="frame" x="20.000000000000007" y="199" width="110.66666666666669" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NRJ-d3-k3a">
-                                <rect key="frame" x="174.33333333333334" y="483.33333333333331" width="81.333333333333343" height="34.333333333333314"/>
+                                <rect key="frame" x="174.33333333333334" y="461.33333333333331" width="81.333333333333343" height="34.333333333333314"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Log out" cornerStyle="capsule"/>
                                 <connections>
@@ -179,7 +178,7 @@
                             <constraint firstItem="Bln-VM-5Ck" firstAttribute="leading" secondItem="f6O-re-ZLY" secondAttribute="leading" id="Y0s-K0-RGE"/>
                             <constraint firstItem="E1L-wY-hlD" firstAttribute="leading" secondItem="SqB-SY-ANa" secondAttribute="leading" id="mSF-Q3-1EM"/>
                             <constraint firstItem="GVt-wg-hM1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Bln-VM-5Ck" secondAttribute="trailing" constant="8" symbolic="YES" id="nzj-Gc-zkx"/>
-                            <constraint firstItem="f6O-re-ZLY" firstAttribute="top" secondItem="14D-Wk-PbG" secondAttribute="top" constant="20" id="tHn-xA-Z31"/>
+                            <constraint firstItem="f6O-re-ZLY" firstAttribute="top" secondItem="14D-Wk-PbG" secondAttribute="top" constant="60" id="tHn-xA-Z31"/>
                             <constraint firstItem="Bln-VM-5Ck" firstAttribute="top" secondItem="AUH-Ma-ZiV" secondAttribute="bottom" constant="20" id="vJH-Ie-Rpk"/>
                             <constraint firstItem="NRJ-d3-k3a" firstAttribute="centerX" secondItem="14D-Wk-PbG" secondAttribute="centerX" id="xHY-uM-nv5"/>
                             <constraint firstItem="GVt-wg-hM1" firstAttribute="top" secondItem="SqB-SY-ANa" secondAttribute="bottom" constant="20" id="xvW-hG-ZI1"/>

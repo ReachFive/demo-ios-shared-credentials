@@ -11,6 +11,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     )
     
     static let local = SecureStorage()
+    static let shared = SecureStorage(group: Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String + "com.reach5.SharedItems")
+
     let reachfive = ReachFive(sdkConfig: sdkRemote, providersCreators: [], storage: local)
 
     static func reachfive() -> ReachFive {
@@ -41,3 +43,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension UIViewController {
+    func goToProfile(token: AuthToken) {
+        print("goToProfile")
+        
+        AppDelegate.local.save(key: "token", value: token)
+        AppDelegate.shared.save(key: "token", value: token)
+
+        guard let profileController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Profile") as? ProfileViewController else {
+            print("did not find ProfileViewController")
+            return
+        }
+
+        profileController.authToken = token
+        navigationController?.pushViewController(profileController, animated: true)
+    }
+}

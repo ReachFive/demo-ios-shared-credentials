@@ -14,22 +14,19 @@ class LoginViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         print("LoginViewController.viewWillAppear")
-//        let shared = SecureStorage(group: Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String + "com.reach5.SharedItems")
-//        let localToken: String? = AppDelegate.local.get(key: "token")
-//        let sharedToken: String? = shared.get(key: "token")
-        
-        let tk: AuthToken = AuthToken(idToken: "toto", accessToken: "toto", refreshToken: "toto", tokenType: "toto", expiresIn: 100000, user: nil)
+//        let tk: AuthToken = AuthToken(idToken: "toto", accessToken: "toto", refreshToken: "toto", tokenType: "toto", expiresIn: 100000, user: nil)
 //        AppDelegate.local.save(key: "token", value: tk)
         if let token: AuthToken = AppDelegate.local.get(key: "token") {
             print("did find token on LoginViewController.viewWillAppear")
-            guard let profileController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Profile") as? ProfileViewController else {
-                print("did not find ProfileViewController")
-                return
-            }
+            goToProfile(token: token)
+        } else if let token: AuthToken = AppDelegate.shared.get(key: "token") {
+            Identifier.isHidden = false
+            SeConnecter.isHidden = false
+            SeConnecterAAutre.isHidden = false
+            safari.isHidden = true
             
-            print("initialized profileController")
-            profileController.authToken = token
-            navigationController?.pushViewController(profileController, animated: true)
+            Identifier.text = token.user?.email
+
         } else {
             print("token not found on LoginViewController.viewWillAppear")
             Identifier.isHidden = true
@@ -40,6 +37,9 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func connectWithToken(_ sender: Any) {
+        if let token: AuthToken = AppDelegate.shared.get(key: "token") {
+            goToProfile(token: token)
+        }
     }
     
     @IBAction func connectOther(_ sender: Any) {

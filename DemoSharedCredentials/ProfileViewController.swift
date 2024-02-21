@@ -28,7 +28,7 @@ class ProfileViewController: UIViewController {
                 }
 //                self.customIdentifierLabel.text = profile.customIdentifier
                 if let loginSummary = profile.loginSummary, let lastLogin = loginSummary.lastLogin {
-                    self.loginText.text = self.format(date: lastLogin).appending("\n").appending(loginSummary.lastProvider ?? "")
+                    self.loginText.text = self.format(date: lastLogin).appending(" : ").appending(loginSummary.lastProvider ?? "")
                 }                
             }
             .onFailure { error in
