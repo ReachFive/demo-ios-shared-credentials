@@ -13,13 +13,13 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let local = SecureStorage()
-        let shared = SecureStorage(group: Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String + "com.reach5.SharedItems")
-        let localToken: String? = local.get(key: "token")
-        let sharedToken: String? = shared.get(key: "token")
-        
-        
-
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("LoginViewController.viewWillAppear")
+//        let shared = SecureStorage(group: Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String + "com.reach5.SharedItems")
+//        let localToken: String? = AppDelegate.local.get(key: "token")
+//        let sharedToken: String? = shared.get(key: "token")
     }
 
     @IBAction func connectWithToken(_ sender: Any) {

@@ -1,17 +1,18 @@
 import Foundation
+import IdentitySdkCore
 
-public class SecureStorage {
+public class SecureStorage: Storage {
     public static let authKey = "AUTH_TOKEN"
     
     private let serviceName: String
     private let group: String
     
     public init(group: String? = nil) {
-        let bundleId = "Shared"
-        serviceName = bundleId
+        let bundleId = Bundle.main.bundleIdentifier!
+        serviceName = group ?? bundleId
         
         self.group = group ?? (Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String) + bundleId
-        print(self.group)
+        print("SecureStorage.init(group: \(group)) serviceName:\(serviceName) accessGroup: \(self.group)")
     }
     
     public func save<D: Codable>(key: String, value: D) {
@@ -19,6 +20,8 @@ public class SecureStorage {
             print(KeychainError.jsonSerializationError)
             return
         }
+        
+        print("save data: \(data)")
         
         let attributes = [kSecClass: kSecClassGenericPassword,
                           kSecAttrAccount: key,
