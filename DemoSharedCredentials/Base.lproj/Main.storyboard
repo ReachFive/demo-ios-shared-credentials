@@ -114,9 +114,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SqB-SY-ANa" userLabel="Phone Text">
-                                <rect key="frame" x="151" y="163" width="129" height="32"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SqB-SY-ANa" userLabel="Phone Text">
+                                <rect key="frame" x="151" y="163" width="129" height="20"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="0g5-6h-fn1"/>
+                                </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -133,15 +136,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="GVt-wg-hM1" userLabel="login text">
-                                <rect key="frame" x="151" y="212" width="129" height="20"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="GVt-wg-hM1" userLabel="login text">
+                                <rect key="frame" x="151" y="203" width="129" height="20"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="POj-4g-XKX"/>
+                                </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="login summary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bln-VM-5Ck" userLabel="login summary field">
-                                <rect key="frame" x="20.000000000000007" y="203" width="111.66666666666669" height="20"/>
+                                <rect key="frame" x="20.000000000000007" y="203" width="110.66666666666669" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -173,10 +179,10 @@
                             <constraint firstItem="Bln-VM-5Ck" firstAttribute="leading" secondItem="f6O-re-ZLY" secondAttribute="leading" id="Y0s-K0-RGE"/>
                             <constraint firstItem="E1L-wY-hlD" firstAttribute="leading" secondItem="SqB-SY-ANa" secondAttribute="leading" id="mSF-Q3-1EM"/>
                             <constraint firstItem="GVt-wg-hM1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Bln-VM-5Ck" secondAttribute="trailing" constant="8" symbolic="YES" id="nzj-Gc-zkx"/>
-                            <constraint firstItem="GVt-wg-hM1" firstAttribute="top" secondItem="SqB-SY-ANa" secondAttribute="bottom" constant="8" symbolic="YES" id="rcc-WY-fb4"/>
                             <constraint firstItem="f6O-re-ZLY" firstAttribute="top" secondItem="14D-Wk-PbG" secondAttribute="top" constant="20" id="tHn-xA-Z31"/>
                             <constraint firstItem="Bln-VM-5Ck" firstAttribute="top" secondItem="AUH-Ma-ZiV" secondAttribute="bottom" constant="20" id="vJH-Ie-Rpk"/>
                             <constraint firstItem="NRJ-d3-k3a" firstAttribute="centerX" secondItem="14D-Wk-PbG" secondAttribute="centerX" id="xHY-uM-nv5"/>
+                            <constraint firstItem="GVt-wg-hM1" firstAttribute="top" secondItem="SqB-SY-ANa" secondAttribute="bottom" constant="20" id="xvW-hG-ZI1"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="yvl-5v-NqH"/>
