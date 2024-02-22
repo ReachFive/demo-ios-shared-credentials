@@ -28,7 +28,7 @@ public class SecureStorage: Storage {
     public func getToken() -> AuthToken? {
         let refs: Set<String>? = get(key: SecureStorage.refKey)
         print("getToken.refs \(refs)")
-
+        
         return get(key: SecureStorage.authKey)
     }
     
@@ -59,7 +59,7 @@ public class SecureStorage: Storage {
             }
     }
     
-    public func removeToken(onLastClear: () -> Void) -> ()? {
+    public func removeToken(onLastClear: (() -> Void)? = nil) -> ()? {
         guard var refs: Set<String> = get(key: SecureStorage.refKey) else {
             print("trying to clear a token without references")
             return nil
@@ -75,11 +75,18 @@ public class SecureStorage: Storage {
                 return ()
             }
             return remove(key: SecureStorage.authKey).flatMap { _ in
-                onLastClear()
+                onLastClear?()
                 if sendNotif {
                     NotificationCenter.default.post(name: .DidClearAuthToken, object: nil)
                 }
                 return ()
+            }
+        }
+    }
+    
+    public func removeAllTokens() -> ()? {
+        remove(key: SecureStorage.authKey).flatMap { _ in
+            remove(key: SecureStorage.refKey).flatMap { _ in
             }
         }
     }
@@ -205,17 +212,18 @@ public class SecureStorage: Storage {
             print(KeychainError.unhandledError(status: status))
             return nil
         }
-        print("SecureStorage.clear success")
         return ()
     }
     
     public func clear(key: String) {
-        remove(key: key)
+        remove(key: key).map {
+            print("SecureStorage.clear success")
+        }
     }
     
 }
 
-public enum KeychainError: Error {
+enum KeychainError: Error {
     case noToken
     case unexpectedTokenData
     case jsonSerializationError
