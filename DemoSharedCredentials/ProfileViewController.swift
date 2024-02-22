@@ -29,7 +29,7 @@ class ProfileViewController: UIViewController {
 //                self.customIdentifierLabel.text = profile.customIdentifier
                 if let loginSummary = profile.loginSummary, let lastLogin = loginSummary.lastLogin {
                     self.loginText.text = self.format(date: lastLogin).appending(" : ").appending(loginSummary.lastProvider ?? "")
-                }                
+                }
             }
             .onFailure { error in
                 // the token is probably expired, but it is still possible that it can be refreshed
@@ -51,8 +51,11 @@ class ProfileViewController: UIViewController {
     
     @IBAction func logout(_ sender: Any) {
         print("logout(_:)")
-        AppDelegate.local.clear(key: "token")
-        let login = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Login")
+        AppDelegate.local.removeToken { () -> Void in
+            AppDelegate.reachfive().logout().onComplete { res in
+                print(res)
+            }
+        }
         navigationController?.popViewController(animated: true)
     }
 }

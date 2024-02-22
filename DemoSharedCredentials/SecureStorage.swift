@@ -19,44 +19,63 @@ public class SecureStorage: Storage {
         self.group = group ?? (Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String) + bundleId
         print("SecureStorage.init(group: \(group ?? "")) serviceName:\(serviceName) accessGroup: \(self.group)")
     }
+
+//    1. tester ces méthodes : enregistrer des clés dans la sandbox et dans l'app de test et vérifier les scénarios attendus
+//    2. mettre ce code dans la sandbox, utiliser les nouvelles méthodes et adapter le code, voir si l'existant fonctionne toujours
+//    3. finir la vraie app
+//    4. démo avec iCloud
+    
+    public func getToken() -> AuthToken? {
+        let refs: Set<String>? = get(key: SecureStorage.refKey)
+        print("getToken.refs \(refs)")
+
+        return get(key: SecureStorage.authKey)
+    }
     
     public func setToken(_ token: AuthToken) -> ()? {
         set(token, forKey: SecureStorage.authKey).flatMap { _ in
                 let refs: Set<String>? = get(key: SecureStorage.refKey)
+                print("setToken.refs \(refs)")
                 if var refs {
                     if refs.insert(bundleId).inserted {
+                        print("setToken.refs.inserted \(refs)")
                         return set(refs, forKey: SecureStorage.refKey)
                     } else {
+                        print("setToken.refs.notInserted \(refs)")
                         return ()
                     }
                 } else {
                     let ref: Set = [bundleId]
+                    print("setToken.refs.added \(ref)")
                     return set(ref, forKey: SecureStorage.refKey)
                 }
             }
             .flatMap { r in
-                print("send .DidSetAuthToken")
                 if sendNotif {
+                    print("setToken.send .DidSetAuthToken")
                     NotificationCenter.default.post(name: .DidSetAuthToken, object: nil, userInfo: ["token": token])
                 }
                 return r
             }
     }
     
-    public func clearToken() -> ()? {
+    public func removeToken(onLastClear: () -> Void) -> ()? {
         guard var refs: Set<String> = get(key: SecureStorage.refKey) else {
             print("trying to clear a token without references")
             return nil
         }
+        print("removeToken.refs \(refs)")
         guard let _ = refs.remove(bundleId) else {
             print("trying to clear a token not present in the references")
             return nil
         }
+        print("removeToken.refs.remove(bundleId) \(refs)")
         return set(refs, forKey: SecureStorage.refKey).flatMap { _ in
             if !refs.isEmpty {
                 return ()
             }
             return remove(key: SecureStorage.authKey).flatMap { _ in
+                onLastClear()
                 if sendNotif {
                     NotificationCenter.default.post(name: .DidClearAuthToken, object: nil)
                 }

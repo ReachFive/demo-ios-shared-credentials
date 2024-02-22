@@ -47,8 +47,8 @@ extension UIViewController {
     func goToProfile(token: AuthToken) {
         print("goToProfile")
         
-        AppDelegate.local.save(key: "token", value: token)
-        AppDelegate.shared.save(key: "token", value: token)
+        AppDelegate.local.setToken(token)
+        AppDelegate.shared.setToken(token)
 
         guard let profileController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Profile") as? ProfileViewController else {
             print("did not find ProfileViewController")

@@ -13,17 +13,21 @@ class LoginViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        //TEMP
+        safari.isHidden = false
+        
         print("LoginViewController.viewWillAppear")
 //        let tk: AuthToken = AuthToken(idToken: "toto", accessToken: "toto", refreshToken: "toto", tokenType: "toto", expiresIn: 100000, user: nil)
 //        AppDelegate.local.save(key: "token", value: tk)
-        if let token: AuthToken = AppDelegate.local.get(key: "token") {
+        if let token = AppDelegate.local.getToken() {
             print("did find token on LoginViewController.viewWillAppear")
             goToProfile(token: token)
-        } else if let token: AuthToken = AppDelegate.shared.get(key: "token") {
+        } else if let token = AppDelegate.shared.getToken() {
             Identifier.isHidden = false
             SeConnecter.isHidden = false
             SeConnecterAAutre.isHidden = false
-            safari.isHidden = true
+//TEMP            safari.isHidden = true
             
             Identifier.text = token.user?.email
 
@@ -37,16 +41,22 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func connectWithToken(_ sender: Any) {
-        if let token: AuthToken = AppDelegate.shared.get(key: "token") {
-            goToProfile(token: token)
-        }
+        AppDelegate.shared.getToken()
+
+//        if let token = AppDelegate.shared.getToken() {
+//            goToProfile(token: token)
+//        }
     }
     
     @IBAction func connectOther(_ sender: Any) {
         safari.isHidden = false
+        AppDelegate.shared.removeToken {
+            print("last was removed")
+        }
     }
     
     @IBAction func connectWithSafari(_ sender: Any) {
+        AppDelegate.shared.setToken(AuthToken(idToken: nil, accessToken: "", refreshToken: nil, tokenType: nil, expiresIn: nil, user: nil))
     }
 }
 
