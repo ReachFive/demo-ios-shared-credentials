@@ -13,6 +13,7 @@
 		2A2192A12B83A7CC00DDF153 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A21929F2B83A7CC00DDF153 /* Main.storyboard */; };
 		2A2192A32B83A7CE00DDF153 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A2192A22B83A7CE00DDF153 /* Assets.xcassets */; };
 		2A2192A62B83A7CE00DDF153 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A2192A42B83A7CE00DDF153 /* LaunchScreen.storyboard */; };
+		2A5E005C2B8CF0C000585C2E /* BounceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5E005B2B8CF0C000585C2E /* BounceButton.swift */; };
 		2ACBCE982B83D22E0059D5F9 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACBCE972B83D22E0059D5F9 /* SecureStorage.swift */; };
 		2AED64E82B86218A00EB61DD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED64E72B86218A00EB61DD /* ProfileViewController.swift */; };
 		C487BC0E5EB404AFB7592CD6 /* Pods_DemoSharedCredentials.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE2554B8A9965298942EA612 /* Pods_DemoSharedCredentials.framework */; };
@@ -27,6 +28,7 @@
 		2A2192A22B83A7CE00DDF153 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2A2192A52B83A7CE00DDF153 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2A2192A72B83A7CE00DDF153 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A5E005B2B8CF0C000585C2E /* BounceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BounceButton.swift; sourceTree = "<group>"; };
 		2ACBCE922B83C3350059D5F9 /* DemoSharedCredentials.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DemoSharedCredentials.entitlements; sourceTree = "<group>"; };
 		2ACBCE972B83D22E0059D5F9 /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
 		2AED64E72B86218A00EB61DD /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				2ACBCE922B83C3350059D5F9 /* DemoSharedCredentials.entitlements */,
 				2A2192A72B83A7CE00DDF153 /* Info.plist */,
 				2A2192992B83A7CC00DDF153 /* AppDelegate.swift */,
+				2A5E005B2B8CF0C000585C2E /* BounceButton.swift */,
 				2A21929D2B83A7CC00DDF153 /* LoginViewController.swift */,
 				2AED64E72B86218A00EB61DD /* ProfileViewController.swift */,
 				2A21929B2B83A7CC00DDF153 /* SceneDelegate.swift */,
@@ -219,6 +222,7 @@
 				2A21929A2B83A7CC00DDF153 /* AppDelegate.swift in Sources */,
 				2ACBCE982B83D22E0059D5F9 /* SecureStorage.swift in Sources */,
 				2A21929C2B83A7CC00DDF153 /* SceneDelegate.swift in Sources */,
+				2A5E005C2B8CF0C000585C2E /* BounceButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

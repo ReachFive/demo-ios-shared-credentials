@@ -33,7 +33,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IhR-Tp-3ah">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IhR-Tp-3ah" customClass="BounceButton" customModule="DemoSharedCredentials" customModuleProvider="target">
                                 <rect key="frame" x="81.333333333333343" y="163" width="267.66666666666663" height="34.333333333333343"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Se connecter" cornerStyle="capsule"/>
@@ -41,7 +41,7 @@
                                     <action selector="connectWithToken:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kbc-0h-Q2O"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOG-G6-lXB">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOG-G6-lXB" customClass="BounceButton" customModule="DemoSharedCredentials" customModuleProvider="target">
                                 <rect key="frame" x="81.333333333333343" y="217.33333333333334" width="267.66666666666663" height="34.333333333333343"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Se connecter à un autre compte"/>
@@ -60,7 +60,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kqi-fv-ibo">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kqi-fv-ibo" customClass="BounceButton" customModule="DemoSharedCredentials" customModuleProvider="target">
                                 <rect key="frame" x="108.66666666666669" y="351.66666666666669" width="213" height="34.333333333333314"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Se connecter avec Safari"/>
@@ -76,7 +76,7 @@
                                     <action selector="reloadData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bcr-V8-kMb"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ih8-gU-xx9">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ih8-gU-xx9" customClass="BounceButton" customModule="DemoSharedCredentials" customModuleProvider="target">
                                 <rect key="frame" x="32.666666666666657" y="406" width="365" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Se connecter avec le gestionnaire de secrets"/>
@@ -173,7 +173,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NRJ-d3-k3a">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NRJ-d3-k3a" customClass="BounceButton" customModule="DemoSharedCredentials" customModuleProvider="target">
                                 <rect key="frame" x="115.66666666666669" y="461" width="199" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Déconnecter cette app" cornerStyle="capsule"/>
@@ -181,7 +181,7 @@
                                     <action selector="logout:" destination="aY5-bS-epw" eventType="touchUpInside" id="eln-ag-8td"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FXA-NF-2cM">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FXA-NF-2cM" customClass="BounceButton" customModule="DemoSharedCredentials" customModuleProvider="target">
                                 <rect key="frame" x="81.666666666666686" y="524" width="267" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Déconnecter de toutes les apps" cornerStyle="capsule"/>
@@ -237,7 +237,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemFillColor">
-            <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
