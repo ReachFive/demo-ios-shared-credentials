@@ -1,6 +1,0 @@
-framework module IdentitySdkCore {
-  umbrella header "IdentitySdkCore-umbrella.h"
-
-  export *
-  module * { export * }
-}
