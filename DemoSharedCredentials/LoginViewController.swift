@@ -70,7 +70,14 @@ class LoginViewController: UIViewController {
     
     @IBAction func connectWithSafari(_ sender: Any) {
         print("connectWithSafari")
-        AppDelegate.reachfive().webviewLogin(WebviewLoginRequest(state: "state", nonce: "nonce", scope: nil, presentationContextProvider: self))
+        print(AppDelegate.reachfive().getProviders())
+//        AppDelegate.reachfive().reinitialize().onComplete { res in
+//            print(res)
+//        }
+        let v = AppDelegate.reachfive().getProvider(name: "facebook")
+        if v == nil {print("no facebook")}
+        v?.login(scope: nil, origin: "no origin", viewController: self)
+//        AppDelegate.reachfive().webviewLogin(WebviewLoginRequest(state: "state", nonce: "nonce", scope: nil, presentationContextProvider: self))
             .onSuccess { token in
                 self.goToProfile(token: token)
             }.onFailure { ReachFiveError in
