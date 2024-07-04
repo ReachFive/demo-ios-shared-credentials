@@ -23,5 +23,30 @@
 			</array>
 		</dict>
 	</dict>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb1634029666893228</string>
+            </array>
+        </dict>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.997770110811-ej532u1vj10tm450p0oge13ahaeoi00e</string>
+            </array>
+        </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>1634029666893228</string>
+    <key>FacebookClientToken</key>
+    <string>1a774a90e2e5ec97b21afcd93ce69909</string>
+    <key>FacebookDisplayName</key>
+    <string>Reach5 SDK Mobile</string>
+    <key>GIDClientID</key>
+    <string>997770110811-ej532u1vj10tm450p0oge13ahaeoi00e.apps.googleusercontent.com</string>
 </dict>
 </plist>

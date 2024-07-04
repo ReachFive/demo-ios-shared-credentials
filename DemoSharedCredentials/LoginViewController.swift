@@ -4,13 +4,14 @@ import IdentitySdkCore
 
 class LoginViewController: UIViewController {
     var enteringForegroung: NSObjectProtocol?
-    
+
     @IBOutlet var SeConnecterAAutre: UIButton!
     @IBOutlet var SeConnecter: UIButton!
     @IBOutlet var safari: UIButton!
     @IBOutlet var Credential: UIButton!
     @IBOutlet var Identifier: UILabel!
     @IBOutlet var Reload: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -19,19 +20,19 @@ class LoginViewController: UIViewController {
             self.showAndHide()
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         print("LoginViewController.viewWillAppear")
-        
+
         #if targetEnvironment(macCatalyst)
         Reload.isHidden = false
         #else
         Reload.isHidden = true
         #endif
-        
+
         showAndHide()
     }
-    
+
     private func showAndHide() {
         if let token = AppDelegate.local.getToken() {
             print("did find token on LoginViewController.viewWillAppear")
@@ -47,12 +48,13 @@ class LoginViewController: UIViewController {
             localLoginSheet(isHidden: false)
         }
     }
-    
+
     private func sharedLoginSheet(isHidden: Bool) {
         Identifier.isHidden = isHidden
         SeConnecter.isHidden = isHidden
         SeConnecterAAutre.isHidden = isHidden
     }
+
     private func localLoginSheet(isHidden: Bool) {
         safari.isHidden = isHidden
         Credential.isHidden = isHidden
@@ -63,43 +65,45 @@ class LoginViewController: UIViewController {
             goToProfile(token: token)
         }
     }
-    
+
     @IBAction func connectOther(_ sender: Any) {
         localLoginSheet(isHidden: false)
     }
-    
+
     @IBAction func connectWithSafari(_ sender: Any) {
         print("connectWithSafari")
         print(AppDelegate.reachfive().getProviders())
-//        AppDelegate.reachfive().reinitialize().onComplete { res in
-//            print(res)
-//        }
-        let v = AppDelegate.reachfive().getProvider(name: "facebook")
-        if v == nil {print("no facebook")}
-        v?.login(scope: nil, origin: "no origin", viewController: self)
-//        AppDelegate.reachfive().webviewLogin(WebviewLoginRequest(state: "state", nonce: "nonce", scope: nil, presentationContextProvider: self))
-            .onSuccess { token in
-                self.goToProfile(token: token)
-            }.onFailure { ReachFiveError in
-                print(ReachFiveError)
-            }
+        let provider = AppDelegate.reachfive().getProvider(name: "facebook")
+        if let provider {
+            print(type(of: provider))
+            provider.login(scope: nil, origin: "no origin", viewController: self)
+                .onSuccess { token in
+                    self.goToProfile(token: token)
+                }
+                .onFailure { ReachFiveError in
+                    print(ReachFiveError)
+                }
+        } else {
+            print("no provider")
+        }
     }
-    
+
     @IBAction func connectWithCredential(_ sender: Any) {
         print("connectWithCredential")
         var types: [ModalAuthorization] = [.Password]
         if #available(iOS 16.0, *) {
             types.append(.Passkey)
         }
-        
+
         AppDelegate.reachfive().login(withRequest: NativeLoginRequest(anchor: self.view.window!), usingModalAuthorizationFor: types, display: .Always)
             .onSuccess { token in
                 self.goToProfile(token: token)
-            }.onFailure { ReachFiveError in
+            }
+            .onFailure { ReachFiveError in
                 print(ReachFiveError)
             }
-        }
-    
+    }
+
     @IBAction func reloadData(_ sender: Any) {
         showAndHide()
     }

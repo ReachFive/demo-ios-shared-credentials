@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A0331FE2C36FF3A00AA414F /* Reach5Facebook in Frameworks */ = {isa = PBXBuildFile; productRef = 2A0331FD2C36FF3A00AA414F /* Reach5Facebook */; };
+		2A1C9DD32C36EA0000D73B35 /* IdentitySdkCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2A1C9DD22C36EA0000D73B35 /* IdentitySdkCore */; };
+		2A1C9DD62C36ECE800D73B35 /* Reach5GoogleLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 2A1C9DD52C36ECE800D73B35 /* Reach5GoogleLibrary */; };
 		2A21929A2B83A7CC00DDF153 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2192992B83A7CC00DDF153 /* AppDelegate.swift */; };
 		2A21929C2B83A7CC00DDF153 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A21929B2B83A7CC00DDF153 /* SceneDelegate.swift */; };
 		2A21929E2B83A7CC00DDF153 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A21929D2B83A7CC00DDF153 /* LoginViewController.swift */; };
@@ -38,6 +41,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A1C9DD32C36EA0000D73B35 /* IdentitySdkCore in Frameworks */,
+				2A0331FE2C36FF3A00AA414F /* Reach5Facebook in Frameworks */,
+				2A1C9DD62C36ECE800D73B35 /* Reach5GoogleLibrary in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +100,11 @@
 			dependencies = (
 			);
 			name = DemoSharedCredentials;
+			packageProductDependencies = (
+				2A1C9DD22C36EA0000D73B35 /* IdentitySdkCore */,
+				2A1C9DD52C36ECE800D73B35 /* Reach5GoogleLibrary */,
+				2A0331FD2C36FF3A00AA414F /* Reach5Facebook */,
+			);
 			productName = DemoSharedCredentials;
 			productReference = 2A2192962B83A7CC00DDF153 /* DemoSharedCredentials.app */;
 			productType = "com.apple.product-type.application";
@@ -122,6 +133,11 @@
 				Base,
 			);
 			mainGroup = 2A21928D2B83A7CC00DDF153;
+			packageReferences = (
+				2A1C9DD12C36EA0000D73B35 /* XCRemoteSwiftPackageReference "ios-filtered-repo" */,
+				2A1C9DD42C36ECE800D73B35 /* XCRemoteSwiftPackageReference "ios-filtered-repo-google" */,
+				2A0331FC2C36FF3A00AA414F /* XCRemoteSwiftPackageReference "ios-filtered-repo-facebook" */,
+			);
 			productRefGroup = 2A2192972B83A7CC00DDF153 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -387,6 +403,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2A0331FC2C36FF3A00AA414F /* XCRemoteSwiftPackageReference "ios-filtered-repo-facebook" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReachFive/ios-filtered-repo-facebook.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.9.9;
+			};
+		};
+		2A1C9DD12C36EA0000D73B35 /* XCRemoteSwiftPackageReference "ios-filtered-repo" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReachFive/ios-filtered-repo.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.4.0;
+			};
+		};
+		2A1C9DD42C36ECE800D73B35 /* XCRemoteSwiftPackageReference "ios-filtered-repo-google" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReachFive/ios-filtered-repo-google.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.8.8;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2A0331FD2C36FF3A00AA414F /* Reach5Facebook */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A0331FC2C36FF3A00AA414F /* XCRemoteSwiftPackageReference "ios-filtered-repo-facebook" */;
+			productName = Reach5Facebook;
+		};
+		2A1C9DD22C36EA0000D73B35 /* IdentitySdkCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A1C9DD12C36EA0000D73B35 /* XCRemoteSwiftPackageReference "ios-filtered-repo" */;
+			productName = IdentitySdkCore;
+		};
+		2A1C9DD52C36ECE800D73B35 /* Reach5GoogleLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A1C9DD42C36ECE800D73B35 /* XCRemoteSwiftPackageReference "ios-filtered-repo-google" */;
+			productName = Reach5GoogleLibrary;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2A21928E2B83A7CC00DDF153 /* Project object */;
 }
