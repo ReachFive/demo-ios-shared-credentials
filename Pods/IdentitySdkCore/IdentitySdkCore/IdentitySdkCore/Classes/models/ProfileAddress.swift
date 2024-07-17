@@ -15,6 +15,7 @@ public class ProfileAddress: Codable, DictionaryEncodable {
     public let recipient: String?
     public let company: String?
     public let phoneNumber: String?
+    public let customFields: [String: CustomField]?
     
     private enum CodingKeys: String, CodingKey {
         case title
@@ -31,6 +32,7 @@ public class ProfileAddress: Codable, DictionaryEncodable {
         case recipient
         case company
         case phoneNumber
+        case customFields
     }
     
     public init(
@@ -47,7 +49,8 @@ public class ProfileAddress: Codable, DictionaryEncodable {
         deliveryNote: String?,
         recipient: String?,
         company: String?,
-        phoneNumber: String?
+        phoneNumber: String?,
+        customFields: [String: CustomField]?
     ) {
         self.title = title
         self.isDefault = isDefault
@@ -63,5 +66,6 @@ public class ProfileAddress: Codable, DictionaryEncodable {
         self.recipient = recipient
         self.company = company
         self.phoneNumber = phoneNumber
+        self.customFields = customFields
     }
 }

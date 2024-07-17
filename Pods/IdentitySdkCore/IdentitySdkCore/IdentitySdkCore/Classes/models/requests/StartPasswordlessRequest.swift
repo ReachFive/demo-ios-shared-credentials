@@ -16,7 +16,7 @@ public class StartPasswordlessRequest: Codable, DictionaryEncodable {
     public let codeChallenge: String
     public let codeChallengeMethod: String
     public let origin: String?
-    
+
     public convenience init(
         clientId: String,
         email: String? = nil,
@@ -40,7 +40,7 @@ public class StartPasswordlessRequest: Codable, DictionaryEncodable {
             origin: origin
         )
     }
-    
+
     public init(
         clientId: String,
         email: String?,
@@ -51,7 +51,8 @@ public class StartPasswordlessRequest: Codable, DictionaryEncodable {
         state: String? = nil,
         codeChallenge: String,
         codeChallengeMethod: String,
-        origin: String? = nil) {
+        origin: String? = nil
+    ) {
         self.clientId = clientId
         self.email = email
         self.phoneNumber = phoneNumber

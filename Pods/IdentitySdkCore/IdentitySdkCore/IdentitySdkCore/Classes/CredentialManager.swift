@@ -22,15 +22,16 @@ public class CredentialManager: NSObject {
     // indicates whether the request is modal or auto-fill, in order to show a special error when the modal is canceled by the user
     var isPerformingModalReqest = false
     // data for signup/register
-    var signupOrAddPasskey: SignupOrAddPasskey?
+    var passkeyCreationType: PasskeyCreationType?
     // the scope of the request
     var scope: String?
     // optional origin for user events
     var originR5: String?
     
-    enum SignupOrAddPasskey {
+    enum PasskeyCreationType {
         case Signup(signupOptions: RegistrationOptions)
         case AddPasskey(authToken: AuthToken)
+        case ResetPasskey(resetOptions: ResetOptions)
     }
     
     // MARK: -
@@ -52,7 +53,7 @@ public class CredentialManager: NSObject {
         
         reachFiveApi.createWebAuthnSignupOptions(webAuthnSignupOptions: request)
             .flatMap { options -> Result<ASAuthorizationRequest, ReachFiveError> in
-                self.signupOrAddPasskey = .Signup(signupOptions: options)
+                self.passkeyCreationType = .Signup(signupOptions: options)
                 
                 guard let challenge = options.options.publicKey.challenge.decodeBase64Url() else {
                     return .failure(.TechnicalError(reason: "unreadable challenge: \(options.options.publicKey.challenge)"))
@@ -91,7 +92,47 @@ public class CredentialManager: NSObject {
         
         reachFiveApi.createWebAuthnRegistrationOptions(authToken: authToken, registrationRequest: RegistrationRequest(origin: request.originWebAuthn!, friendlyName: request.friendlyName))
             .flatMap { options -> Result<ASAuthorizationRequest, ReachFiveError> in
-                self.signupOrAddPasskey = .AddPasskey(authToken: authToken)
+                self.passkeyCreationType = .AddPasskey(authToken: authToken)
+                
+                guard let challenge = options.options.publicKey.challenge.decodeBase64Url() else {
+                    return .failure(.TechnicalError(reason: "unreadable challenge: \(options.options.publicKey.challenge)"))
+                }
+                
+                guard let userID = options.options.publicKey.user.id.decodeBase64Url() else {
+                    return .failure(.TechnicalError(reason: "unreadable userID from public key: \(options.options.publicKey.user.id)"))
+                }
+                
+                let publicKeyCredentialProvider = ASAuthorizationPlatformPublicKeyCredentialProvider(relyingPartyIdentifier: options.options.publicKey.rp.id)
+                return .success(publicKeyCredentialProvider.createCredentialRegistrationRequest(challenge: challenge, name: request.friendlyName, userID: userID))
+            }
+            .onSuccess { registrationRequest in
+                let authController = ASAuthorizationController(authorizationRequests: [registrationRequest])
+                authController.delegate = self
+                authController.presentationContextProvider = self
+                authController.performRequests()
+                
+                self.authController = authController
+                self.isPerformingModalReqest = true
+            }
+            .onFailure { error in self.registrationPromise.failure(error) }
+        
+        return registrationPromise.future
+    }
+    
+    // MARK: - Reset
+    @available(iOS 16.0, *)
+    func resetPasskeys(withRequest request: ResetPasskeyRequest) -> Future<(), ReachFiveError> {
+        // Here it is very important to cancel a running auti-fill request, otherwise it will fail like other modal requests
+        // so can't separate this method from the rest of the class
+        authController?.cancel()
+        registrationPromise = Promise()
+        authenticationAnchor = request.anchor
+        self.originR5 = request.origin
+        
+        let resetOptions = ResetOptions(email: request.email, phoneNumber: request.phoneNumber, verificationCode: request.verificationCode, friendlyName: request.friendlyName, origin: request.originWebAuthn!, clientId: reachFiveApi.sdkConfig.clientId)
+        reachFiveApi.createWebAuthnResetOptions(resetOptions: resetOptions)
+            .flatMap { options -> Result<ASAuthorizationRequest, ReachFiveError> in
+                self.passkeyCreationType = .ResetPasskey(resetOptions: resetOptions)
                 
                 guard let challenge = options.options.publicKey.challenge.decodeBase64Url() else {
                     return .failure(.TechnicalError(reason: "unreadable challenge: \(options.options.publicKey.challenge)"))
@@ -306,13 +347,13 @@ extension CredentialManager: ASAuthorizationControllerDelegate {
             let id = credentialRegistration.credentialID.toBase64Url()
             let registrationPublicKeyCredential = RegistrationPublicKeyCredential(id: id, rawId: id, type: "public-key", response: r5AuthenticatorAttestationResponse)
             
-            guard let signupOrAddPasskey else {
+            guard let passkeyCreationType else {
                 promise.tryFailure(.TechnicalError(reason: "didCompleteWithAuthorization: no signupOptions"))
                 registrationPromise.tryFailure(.TechnicalError(reason: "didCompleteWithAuthorization: no token"))
                 return
             }
             
-            switch signupOrAddPasskey {
+            switch passkeyCreationType {
             case let .AddPasskey(authToken):
                 registrationPromise.completeWith(reachFiveApi.registerWithWebAuthn(authToken: authToken, publicKeyCredential: registrationPublicKeyCredential, originR5: self.originR5))
             
@@ -325,6 +366,10 @@ extension CredentialManager: ASAuthorizationControllerDelegate {
                 let webauthnSignupCredential = WebauthnSignupCredential(webauthnId: signupOptions.options.publicKey.user.id, publicKeyCredential: registrationPublicKeyCredential)
                 promise.completeWith(reachFiveApi.signupWithWebAuthn(webauthnSignupCredential: webauthnSignupCredential, originR5: self.originR5)
                     .flatMap({ self.loginCallback(tkn: $0.tkn, scope: scope, origin: self.originR5) }))
+            
+            case let .ResetPasskey(resetOptions):
+                let resetPublicKeyCredential = ResetPublicKeyCredential(resetOptions: resetOptions, publicKeyCredential: registrationPublicKeyCredential)
+                registrationPromise.completeWith(reachFiveApi.resetWebAuthn(resetPublicKeyCredential: resetPublicKeyCredential, originR5: self.originR5))
             }
         } else if #available(iOS 16.0, *), let credentialAssertion = authorization.credential as? ASAuthorizationPlatformPublicKeyCredentialAssertion {
             // A passkey was selected to sign in

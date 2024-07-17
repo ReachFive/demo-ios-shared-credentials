@@ -1,16 +1,16 @@
 import Foundation
 import BrightFutures
 
-extension ReachFive {
+public extension ReachFive {
     
-    public func logout() -> Future<(), ReachFiveError> {
+    func logout() -> Future<(), ReachFiveError> {
         providers
             .map { $0.logout() }
             .sequence()
             .flatMap { _ in self.reachFiveApi.logout() }
     }
     
-    public func refreshAccessToken(authToken: AuthToken) -> Future<AuthToken, ReachFiveError> {
+    func refreshAccessToken(authToken: AuthToken) -> Future<AuthToken, ReachFiveError> {
         let refreshRequest = RefreshRequest(
             clientId: sdkConfig.clientId,
             refreshToken: authToken.refreshToken ?? "",
@@ -21,7 +21,7 @@ extension ReachFive {
             .flatMap({ AuthToken.fromOpenIdTokenResponseFuture($0) })
     }
     
-    public func loginCallback(tkn: String, scopes: [String]?, origin: String? = nil) -> Future<AuthToken, ReachFiveError> {
+    func loginCallback(tkn: String, scopes: [String]?, origin: String? = nil) -> Future<AuthToken, ReachFiveError> {
         let pkce = Pkce.generate()
         let scope = (scopes ?? scope).joined(separator: " ")
         
@@ -29,7 +29,7 @@ extension ReachFive {
             .flatMap({ self.authWithCode(code: $0, pkce: pkce) })
     }
     
-    public func buildAuthorizeURL(pkce: Pkce, state: String? = nil, nonce: String? = nil, scope: [String]? = nil, origin: String? = nil, provider: String? = nil) -> URL {
+    func buildAuthorizeURL(pkce: Pkce, state: String? = nil, nonce: String? = nil, scope: [String]? = nil, origin: String? = nil, provider: String? = nil) -> URL {
         let scope = (scope ?? self.scope).joined(separator: " ")
         let options = [
             "provider": provider,
@@ -47,7 +47,7 @@ extension ReachFive {
         return reachFiveApi.buildAuthorizeURL(queryParams: options)
     }
     
-    public func authWithCode(code: String, pkce: Pkce) -> Future<AuthToken, ReachFiveError> {
+    func authWithCode(code: String, pkce: Pkce) -> Future<AuthToken, ReachFiveError> {
         let authCodeRequest = AuthCodeRequest(
             clientId: sdkConfig.clientId,
             code: code,

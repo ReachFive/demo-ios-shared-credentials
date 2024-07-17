@@ -24,7 +24,7 @@ class DefaultProvider: NSObject, Provider {
             return Future(error: .TechnicalError(reason: "No presenting viewController"))
         }
         
-        return reachfive.webviewLogin(WebviewLoginRequest(state: "state", nonce: "nonce", scope: scope, presentationContextProvider: presentationContextProvider, origin: origin, provider: providerConfig.provider))
+        return reachfive.webviewLogin(WebviewLoginRequest(scope: scope, presentationContextProvider: presentationContextProvider, origin: origin, provider: providerConfig.provider))
     }
     
     override var description: String {
@@ -50,12 +50,5 @@ extension DefaultProvider {
     
     public func logout() -> Future<(), ReachFiveError> {
         Future(value: ())
-    }
-}
-
-extension DefaultProvider {
-    //FIXME deprecated
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        true
     }
 }
