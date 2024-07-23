@@ -1,5 +1,5 @@
 {
-  "originHash" : "6c01cc58ad04648e05c0abe5578f47ee0072ebea7ecdd5ad0548c0601cf4abf1",
+  "originHash" : "a7da2bd3f96f903b34b01fc721ef1599ae97ddc794501b38cf3d3c2dc79610e5",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -83,30 +83,30 @@
       }
     },
     {
-      "identity" : "ios-filtered-repo",
+      "identity" : "reachfive-ios",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ReachFive/ios-filtered-repo.git",
+      "location" : "https://github.com/ReachFive/reachfive-ios.git",
       "state" : {
-        "revision" : "1f4d919d7e0771d8c2ddfd23785ac218cde1f94a",
-        "version" : "6.6.6"
+        "branch" : "7.0.0",
+        "revision" : "a030022eb1c1a8eb698dc07e03cc7777021054e5"
       }
     },
     {
-      "identity" : "ios-filtered-repo-facebook",
+      "identity" : "reachfive-ios-facebook",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ReachFive/ios-filtered-repo-facebook.git",
+      "location" : "https://github.com/ReachFive/reachfive-ios-facebook.git",
       "state" : {
-        "revision" : "24ebf7e773ff35efa6cd0f5d5cfe4ff12b6ce015",
-        "version" : "9.9.9"
+        "branch" : "7.0.0",
+        "revision" : "4bfa699a7b344cd99e968a3a31fbcf33ca974bc6"
       }
     },
     {
-      "identity" : "ios-filtered-repo-google",
+      "identity" : "reachfive-ios-google",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ReachFive/ios-filtered-repo-google.git",
+      "location" : "https://github.com/ReachFive/reachfive-ios-google.git",
       "state" : {
-        "revision" : "c2ff84ad7dba2f4be224eb1400fa6a604d5e1b2c",
-        "version" : "8.8.8"
+        "branch" : "7.0.0",
+        "revision" : "8d391fd675199a60e85f6698038c8326e63d7ab4"
       }
     }
   ],

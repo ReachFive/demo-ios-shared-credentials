@@ -1,6 +1,6 @@
 import UIKit
 import AuthenticationServices
-import IdentitySdkCore
+import Reach5
 
 class LoginViewController: UIViewController {
     var enteringForegroung: NSObjectProtocol?

@@ -1,7 +1,7 @@
 import UIKit
-import IdentitySdkCore
+import Reach5
 import Reach5Facebook
-import Reach5GoogleTarget
+import Reach5Google
 //import Reach5WeChat
 
 @main
@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static let local = SecureStorage()
     static let shared = SecureStorage(group: Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String + "com.reach5.SharedItems")
     
-    let reachfive = ReachFive(sdkConfig: sdkLocal, providersCreators: [FacebookProvider(), GoogleProvider()/*, WeChatProvider()*/], storage: local)
+    let reachfive = ReachFive(sdkConfig: sdkLocal, providersCreators: [FacebookProvider(), GoogleProvider(), /*WeChatProvider()*/], storage: local)
 
     static func reachfive() -> ReachFive {
         let app = UIApplication.shared.delegate as! AppDelegate
