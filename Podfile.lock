@@ -3,14 +3,14 @@ PODS:
   - BrightFutures (8.2.0)
   - CryptoSwift (1.8.2)
   - DeviceKit (5.4.0)
-  - IdentitySdkCore (6.4.0.beta):
+  - Reach5 (7.0.0.beta):
     - Alamofire (~> 5.8)
     - BrightFutures (~> 8.2.0)
     - CryptoSwift (~> 1.8)
     - DeviceKit (~> 5.1)
 
 DEPENDENCIES:
-  - IdentitySdkCore (~> 6.4.0.beta)
+  - Reach5 (= 7.0.0.beta)
 
 SPEC REPOS:
   trunk:
@@ -18,15 +18,15 @@ SPEC REPOS:
     - BrightFutures
     - CryptoSwift
     - DeviceKit
-    - IdentitySdkCore
+    - Reach5
 
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   BrightFutures: 67e0e8cd974ab9f6c04650cc64153f7adf1ec489
   CryptoSwift: c63a805d8bb5e5538e88af4e44bb537776af11ea
   DeviceKit: bd34bb1766d926c3cc5a5f6e3e9a6dd10148b805
-  IdentitySdkCore: 9eb37bd066fc764482229f3da0473dba9cff58d3
+  Reach5: 8d8e2741c547308c29a0ba538869e805be301be8
 
-PODFILE CHECKSUM: 4c92325e1e5afdb5a2b21adda7d7513810b6e5ca
+PODFILE CHECKSUM: 92ae87682b3b58537b1dda60ddaa1e4119f11926
 
 COCOAPODS: 1.15.2

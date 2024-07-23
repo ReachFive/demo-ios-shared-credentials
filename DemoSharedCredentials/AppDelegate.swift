@@ -1,5 +1,6 @@
 import UIKit
-import IdentitySdkCore
+import Reach5
+//import IdentitySdkGoogle
 
 
 @main
@@ -10,10 +11,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         clientId: "9DKRdQyDLpaJqQQQAR9K"
     )
     
+    static let sdkLocal = SdkConfig(
+        domain: "local-sandbox.og4.me",
+        clientId: "9DKRdQyDLpaJqQQQAR9K"
+    )
+    
+    
     static let local = SecureStorage()
     static let shared = SecureStorage(group: Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String + "com.reach5.SharedItems")
 
-    let reachfive = ReachFive(sdkConfig: sdkRemote, providersCreators: [], storage: local)
+    let reachfive = ReachFive(sdkConfig: sdkLocal,
+//                              providersCreators: [GoogleProvider()],
+                              providersCreators: [],
+                              storage: local)
 
     static func reachfive() -> ReachFive {
         let app = UIApplication.shared.delegate as! AppDelegate

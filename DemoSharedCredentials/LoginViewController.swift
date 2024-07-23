@@ -1,6 +1,6 @@
 import UIKit
 import AuthenticationServices
-import IdentitySdkCore
+import Reach5
 
 class LoginViewController: UIViewController {
     var enteringForegroung: NSObjectProtocol?
@@ -70,14 +70,22 @@ class LoginViewController: UIViewController {
     
     @IBAction func connectWithSafari(_ sender: Any) {
         print("connectWithSafari")
-        AppDelegate.reachfive().webviewLogin(WebviewLoginRequest(state: "state", nonce: "nonce", scope: nil, presentationContextProvider: self))
-            .onSuccess { token in
-                self.goToProfile(token: token)
-            }.onFailure { ReachFiveError in
-                print(ReachFiveError)
-            }
+        print(AppDelegate.reachfive().getProviders())
+        let provider = AppDelegate.reachfive().getProvider(name: "facebook")
+        if let provider {
+            print(type(of: provider))
+            provider.login(scope: nil, origin: "no origin", viewController: self)
+                .onSuccess { token in
+                    self.goToProfile(token: token)
+                }
+                .onFailure { ReachFiveError in
+                    print(ReachFiveError)
+                }
+        } else {
+            print("no provider")
+        }
     }
-    
+
     @IBAction func connectWithCredential(_ sender: Any) {
         print("connectWithCredential")
         var types: [ModalAuthorization] = [.Password]

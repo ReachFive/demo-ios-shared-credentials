@@ -1,5 +1,5 @@
 import Foundation
-import IdentitySdkCore
+import Reach5
 
 public class SecureStorage: Storage {
     public static let authKey = "AUTH_TOKEN"
