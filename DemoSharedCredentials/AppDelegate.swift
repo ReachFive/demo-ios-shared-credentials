@@ -8,7 +8,7 @@ import Reach5Google
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     static let sdkRemote = SdkConfig(
-        domain: "integ-qa-fonctionnelle-pr3970.reach5.dev",
+        domain: "integ-qa-fonctionnelle.reach5.net",
         clientId: "9DKRdQyDLpaJqQQQAR9K"
     )
     

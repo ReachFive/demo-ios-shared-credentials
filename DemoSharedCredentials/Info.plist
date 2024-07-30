@@ -40,6 +40,11 @@
             </array>
         </dict>
     </array>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>fbapi</string>
+        <string>fb-messenger-share-api</string>
+    </array>
     <key>FacebookAppID</key>
     <string>1634029666893228</string>
     <key>FacebookClientToken</key>
