@@ -16,6 +16,7 @@
 		2A2192A12B83A7CC00DDF153 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A21929F2B83A7CC00DDF153 /* Main.storyboard */; };
 		2A2192A32B83A7CE00DDF153 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A2192A22B83A7CE00DDF153 /* Assets.xcassets */; };
 		2A2192A62B83A7CE00DDF153 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A2192A42B83A7CE00DDF153 /* LaunchScreen.storyboard */; };
+		2A52DA602C5AEE9B007F003F /* Reach5WeChat in Frameworks */ = {isa = PBXBuildFile; productRef = 2A52DA5F2C5AEE9B007F003F /* Reach5WeChat */; };
 		2A5E005C2B8CF0C000585C2E /* BounceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5E005B2B8CF0C000585C2E /* BounceButton.swift */; };
 		2ACBCE982B83D22E0059D5F9 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACBCE972B83D22E0059D5F9 /* SecureStorage.swift */; };
 		2AED64E82B86218A00EB61DD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED64E72B86218A00EB61DD /* ProfileViewController.swift */; };
@@ -41,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A52DA602C5AEE9B007F003F /* Reach5WeChat in Frameworks */,
 				2A2024E62C4F40DB000DD48D /* Reach5Google in Frameworks */,
 				2A2024E32C4F40C0000DD48D /* Reach5Facebook in Frameworks */,
 				2A2024DA2C4F340F000DD48D /* Reach5 in Frameworks */,
@@ -104,6 +106,7 @@
 				2A2024D92C4F340F000DD48D /* Reach5 */,
 				2A2024E22C4F40C0000DD48D /* Reach5Facebook */,
 				2A2024E52C4F40DB000DD48D /* Reach5Google */,
+				2A52DA5F2C5AEE9B007F003F /* Reach5WeChat */,
 			);
 			productName = DemoSharedCredentials;
 			productReference = 2A2192962B83A7CC00DDF153 /* DemoSharedCredentials.app */;
@@ -137,6 +140,7 @@
 				2A2024D82C4F340F000DD48D /* XCRemoteSwiftPackageReference "reachfive-ios" */,
 				2A2024E12C4F40C0000DD48D /* XCRemoteSwiftPackageReference "reachfive-ios-facebook" */,
 				2A2024E42C4F40DB000DD48D /* XCRemoteSwiftPackageReference "reachfive-ios-google" */,
+				2A52DA5E2C5AEE9B007F003F /* XCRemoteSwiftPackageReference "reachfive-ios-wechat" */,
 			);
 			productRefGroup = 2A2192972B83A7CC00DDF153 /* Products */;
 			projectDirPath = "";
@@ -409,7 +413,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReachFive/reachfive-ios.git";
 			requirement = {
-				branch = 7.0.0;
+				branch = feature/renomage_projet;
 				kind = branch;
 			};
 		};
@@ -417,7 +421,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReachFive/reachfive-ios-facebook.git";
 			requirement = {
-				branch = 7.0.0;
+				branch = feature/renomage_projet;
 				kind = branch;
 			};
 		};
@@ -425,7 +429,15 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReachFive/reachfive-ios-google.git";
 			requirement = {
-				branch = 7.0.0;
+				branch = feature/renomage_projet;
+				kind = branch;
+			};
+		};
+		2A52DA5E2C5AEE9B007F003F /* XCRemoteSwiftPackageReference "reachfive-ios-wechat" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReachFive/reachfive-ios-wechat.git";
+			requirement = {
+				branch = feature/renomage_projet;
 				kind = branch;
 			};
 		};
@@ -446,6 +458,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A2024E42C4F40DB000DD48D /* XCRemoteSwiftPackageReference "reachfive-ios-google" */;
 			productName = Reach5Google;
+		};
+		2A52DA5F2C5AEE9B007F003F /* Reach5WeChat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A52DA5E2C5AEE9B007F003F /* XCRemoteSwiftPackageReference "reachfive-ios-wechat" */;
+			productName = Reach5WeChat;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
