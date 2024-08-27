@@ -73,7 +73,7 @@ class LoginViewController: UIViewController {
     @IBAction func connectWithSafari(_ sender: Any) {
         print("connectWithSafari")
         print(AppDelegate.reachfive().getProviders())
-        let provider = AppDelegate.reachfive().getProvider(name: "google")
+        let provider = AppDelegate.reachfive().getProvider(name: "wechat")
         if let provider {
             print(type(of: provider))
             provider.login(scope: nil, origin: "no origin", viewController: self)
