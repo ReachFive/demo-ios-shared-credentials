@@ -69,12 +69,26 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func connectWithSafari(_ sender: Any) {
+        firstPartySession()
+    }
+    
+    func firstPartySession() {
+        print("connectWithSafari")
+        AppDelegate.reachfive().webviewLogin(WebviewLoginRequest(presentationContextProvider: self))
+            .onSuccess { token in
+                self.goToProfile(token: token)
+            }.onFailure { ReachFiveError in
+                print(ReachFiveError)
+            }
+    }
+    
+    // For testing purposes
+    func thirdPartySession() {
         print("connectWithSafari")
         print(AppDelegate.reachfive().getProviders())
-        let provider = AppDelegate.reachfive().getProvider(name: "facebook")
-        if let provider {
+        if let provider = AppDelegate.reachfive().getProvider(name: "facebook") {
             print(type(of: provider))
-            provider.login(scope: nil, origin: "no origin", viewController: self)
+            provider.login(scope: nil, origin: "thirdPartySession", viewController: self)
                 .onSuccess { token in
                     self.goToProfile(token: token)
                 }
@@ -85,7 +99,7 @@ class LoginViewController: UIViewController {
             print("no provider")
         }
     }
-
+    
     @IBAction func connectWithCredential(_ sender: Any) {
         print("connectWithCredential")
         var types: [ModalAuthorization] = [.Password]

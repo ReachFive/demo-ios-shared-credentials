@@ -1,13 +1,14 @@
 import UIKit
 import Reach5
-//import IdentitySdkGoogle
-
+import Reach5Google
+import Reach5Facebook
+//import Reach5WeChat
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     static let sdkRemote = SdkConfig(
-        domain: "integ-qa-fonctionnelle-pr3970.reach5.dev",
+        domain: "integ-qa-fonctionnelle.reach5.net",
         clientId: "9DKRdQyDLpaJqQQQAR9K"
     )
     
@@ -16,13 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         clientId: "9DKRdQyDLpaJqQQQAR9K"
     )
     
-    
     static let local = SecureStorage()
     static let shared = SecureStorage(group: Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String + "com.reach5.SharedItems")
 
-    let reachfive = ReachFive(sdkConfig: sdkLocal,
-//                              providersCreators: [GoogleProvider()],
-                              providersCreators: [],
+    let reachfive = ReachFive(sdkConfig: sdkRemote,
+                              providersCreators: [FacebookProvider(), GoogleProvider(), /*WeChatProvider()*/],
                               storage: local)
 
     static func reachfive() -> ReachFive {
@@ -49,8 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-
 }
 
 extension UIViewController {
