@@ -1,5 +1,5 @@
 import UIKit
-import IdentitySdkCore
+import Reach5
 
 class ProfileViewController: UIViewController {
     var authToken: AuthToken!

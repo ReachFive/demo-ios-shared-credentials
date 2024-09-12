@@ -1,19 +1,28 @@
 import UIKit
-import IdentitySdkCore
-
+import Reach5
+import Reach5Google
+import Reach5Facebook
+//import Reach5WeChat
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     static let sdkRemote = SdkConfig(
-        domain: "integ-qa-fonctionnelle-pr3970.reach5.dev",
+        domain: "integ-qa-fonctionnelle.reach5.net",
+        clientId: "9DKRdQyDLpaJqQQQAR9K"
+    )
+    
+    static let sdkLocal = SdkConfig(
+        domain: "local-sandbox.og4.me",
         clientId: "9DKRdQyDLpaJqQQQAR9K"
     )
     
     static let local = SecureStorage()
     static let shared = SecureStorage(group: Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String + "com.reach5.SharedItems")
-
-    let reachfive = ReachFive(sdkConfig: sdkRemote, providersCreators: [], storage: local)
+    
+    let reachfive = ReachFive(sdkConfig: sdkRemote,
+                              providersCreators: [FacebookProvider(), GoogleProvider(), /*WeChatProvider()*/],
+                              storage: local)
 
     static func reachfive() -> ReachFive {
         let app = UIApplication.shared.delegate as! AppDelegate
