@@ -1,5 +1,5 @@
 {
-  "originHash" : "a7da2bd3f96f903b34b01fc721ef1599ae97ddc794501b38cf3d3c2dc79610e5",
+  "originHash" : "6c4c820ef06c200989470b9c263aa479b421a4461f52694479e4f9977051c90c",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -87,8 +87,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ReachFive/reachfive-ios.git",
       "state" : {
-        "revision" : "106a5f40f178489e4ef722aac5a66bf91ece1c32",
-        "version" : "7.0.0"
+        "revision" : "2abb566dd5b3f89af8f26f3d8fbd889124c66131",
+        "version" : "7.1.4"
       }
     },
     {
@@ -96,8 +96,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ReachFive/reachfive-ios-facebook.git",
       "state" : {
-        "revision" : "e0671982e5d4fca22883fb9008d64aa2ba16a950",
-        "version" : "7.0.0"
+        "revision" : "31a7417861b03f9fa246c98ae805fc777b9cf0e1",
+        "version" : "7.1.1"
       }
     },
     {
@@ -105,8 +105,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ReachFive/reachfive-ios-google.git",
       "state" : {
-        "revision" : "d39c4f8aa4d2b2a36e53b4865a8224d5dc5694b3",
-        "version" : "7.0.0"
+        "revision" : "2a0aade0afb433b82740933efb97db9e8ce6d1a0",
+        "version" : "7.1.1"
       }
     }
   ],

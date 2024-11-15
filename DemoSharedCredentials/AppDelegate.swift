@@ -20,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static let local = SecureStorage()
     static let shared = SecureStorage(group: Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String + "com.reach5.SharedItems")
     
-    let reachfive = ReachFive(sdkConfig: sdkRemote,
-                              providersCreators: [FacebookProvider(), GoogleProvider(), /*WeChatProvider()*/],
+    let reachfive = ReachFive(sdkConfig: sdkLocal,
+                              providersCreators: [FacebookProvider(variant: "variant_1"), GoogleProvider(variant: "one_tap"), /*WeChatProvider()*/],
                               storage: local)
 
     static func reachfive() -> ReachFive {
@@ -65,6 +65,9 @@ extension UIViewController {
         }
 
         profileController.authToken = token
+        if let top = navigationController?.topViewController, let _ = top as? ProfileViewController {
+            return
+        }
         navigationController?.pushViewController(profileController, animated: true)
     }
 }
