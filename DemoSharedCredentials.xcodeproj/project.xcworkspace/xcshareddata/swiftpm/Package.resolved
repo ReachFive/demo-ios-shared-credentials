@@ -1,13 +1,13 @@
 {
-  "originHash" : "6c4c820ef06c200989470b9c263aa479b421a4461f52694479e4f9977051c90c",
+  "originHash" : "b4c79a1c7a15e0b748c280d5c25211828be14079ff64978e424ddc6682574d9b",
   "pins" : [
     {
       "identity" : "alamofire",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire.git",
       "state" : {
-        "revision" : "f455c2975872ccd2d9c81594c658af65716e9b9a",
-        "version" : "5.9.1"
+        "revision" : "e16d3481f5ed35f0472cb93350085853d754913f",
+        "version" : "5.10.1"
       }
     },
     {
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/devicekit/DeviceKit.git",
       "state" : {
-        "revision" : "5757447e9f92c476ee2ca41ead7eb6db07936430",
-        "version" : "5.4.0"
+        "revision" : "7ff5331960151aec74fb422e1d45f54ef6cc086d",
+        "version" : "5.5.0"
       }
     },
     {
@@ -51,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/facebook/facebook-ios-sdk.git",
       "state" : {
-        "revision" : "2b87f9dd8adc2766dc4dbfd1ee4333bcf0167b4e",
-        "version" : "17.0.3"
+        "revision" : "619d1772808425faa010d92293b26eeb9bc1d630",
+        "version" : "17.4.0"
       }
     },
     {
@@ -87,17 +87,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ReachFive/reachfive-ios.git",
       "state" : {
-        "revision" : "2abb566dd5b3f89af8f26f3d8fbd889124c66131",
-        "version" : "7.1.4"
+        "revision" : "5960eb27691587d7162a0176c0b4838b7088ee81",
+        "version" : "7.1.5"
       }
     },
     {
       "identity" : "reachfive-ios-facebook",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ReachFive/reachfive-ios-facebook.git",
+      "location" : "https://github.com/ReachFive/reachfive-ios-facebook",
       "state" : {
-        "revision" : "31a7417861b03f9fa246c98ae805fc777b9cf0e1",
-        "version" : "7.1.1"
+        "revision" : "66ffc9d31ab2cc6949a3fb7bcaf1b8aab1af2331",
+        "version" : "7.2.0"
       }
     },
     {
