@@ -11,15 +11,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         domain: "integ-qa-fonctionnelle.reach5.net",
         clientId: "9DKRdQyDLpaJqQQQAR9K"
     )
-    
+
     static let sdkLocal = SdkConfig(
         domain: "local-sandbox.og4.me",
         clientId: "9DKRdQyDLpaJqQQQAR9K"
     )
-    
+
     static let local = SecureStorage()
     static let shared = SecureStorage(group: Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String + "com.reach5.SharedItems")
-    
+
     let reachfive = ReachFive(sdkConfig: sdkLocal,
                               providersCreators: [FacebookProvider(variant: "variant_1"), GoogleProvider(variant: "one_tap"), /*WeChatProvider()*/],
                               storage: local)
@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension UIViewController {
     func goToProfile(token: AuthToken) {
         print("goToProfile")
-        
+
         AppDelegate.local.setToken(token)
         AppDelegate.shared.setToken(token)
 
