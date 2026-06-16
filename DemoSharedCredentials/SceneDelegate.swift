@@ -11,6 +11,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+
+        // Lien universel reçu au démarrage à froid (app pas encore lancée).
+        if let userActivity = connectionOptions.userActivities.first {
+            self.scene(scene, continue: userActivity)
+        }
+    }
+
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        print("scene(_:continue:) \(userActivity.activityType)")
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+              let url = userActivity.webpageURL else { return }
+
+        // 1) Notre provider custom (retour en lien universel, iOS < 17.4) a-t-il un login en attente ?
+        if UniversalLinkProvider.pending?.handleUniversalLink(url) == true { return }
+
+        // 2) Sinon, laisser le SDK Reach5 / les autres providers traiter l'activité.
+        _ = AppDelegate.reachfive().application(UIApplication.shared, continue: userActivity) { _ in }
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

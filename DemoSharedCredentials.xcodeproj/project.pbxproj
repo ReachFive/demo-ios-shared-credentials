@@ -20,6 +20,7 @@
 		2A5E005C2B8CF0C000585C2E /* BounceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5E005B2B8CF0C000585C2E /* BounceButton.swift */; };
 		2ACBCE982B83D22E0059D5F9 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACBCE972B83D22E0059D5F9 /* SecureStorage.swift */; };
 		2AED64E82B86218A00EB61DD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED64E72B86218A00EB61DD /* ProfileViewController.swift */; };
+		2AF11A010000000000000002 /* UniversalLinkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF11A010000000000000001 /* UniversalLinkProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		2ACBCE922B83C3350059D5F9 /* DemoSharedCredentials.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DemoSharedCredentials.entitlements; sourceTree = "<group>"; };
 		2ACBCE972B83D22E0059D5F9 /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
 		2AED64E72B86218A00EB61DD /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		2AF11A010000000000000001 /* UniversalLinkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalLinkProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				2A21929D2B83A7CC00DDF153 /* LoginViewController.swift */,
 				2AED64E72B86218A00EB61DD /* ProfileViewController.swift */,
 				2A21929B2B83A7CC00DDF153 /* SceneDelegate.swift */,
+				2AF11A010000000000000001 /* UniversalLinkProvider.swift */,
 				2ACBCE972B83D22E0059D5F9 /* SecureStorage.swift */,
 				2A2192A22B83A7CE00DDF153 /* Assets.xcassets */,
 				2A2192A42B83A7CE00DDF153 /* LaunchScreen.storyboard */,
@@ -175,6 +178,7 @@
 				2ACBCE982B83D22E0059D5F9 /* SecureStorage.swift in Sources */,
 				2A21929C2B83A7CC00DDF153 /* SceneDelegate.swift in Sources */,
 				2A5E005C2B8CF0C000585C2E /* BounceButton.swift in Sources */,
+				2AF11A010000000000000002 /* UniversalLinkProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
