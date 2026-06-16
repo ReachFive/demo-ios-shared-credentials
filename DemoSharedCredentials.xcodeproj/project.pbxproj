@@ -16,6 +16,7 @@
 		2A249C2D2FE18889004C8B05 /* Reach5 in Frameworks */ = {isa = PBXBuildFile; productRef = 2A249C2C2FE18889004C8B05 /* Reach5 */; };
 		2A249C302FE1889D004C8B05 /* Reach5Google in Frameworks */ = {isa = PBXBuildFile; productRef = 2A249C2F2FE1889D004C8B05 /* Reach5Google */; };
 		2A249C332FE188B2004C8B05 /* Reach5Facebook in Frameworks */ = {isa = PBXBuildFile; productRef = 2A249C322FE188B2004C8B05 /* Reach5Facebook */; };
+		2A249C362FE18A6D004C8B05 /* Reach5Future in Frameworks */ = {isa = PBXBuildFile; productRef = 2A249C352FE18A6D004C8B05 /* Reach5Future */; };
 		2A5E005C2B8CF0C000585C2E /* BounceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5E005B2B8CF0C000585C2E /* BounceButton.swift */; };
 		2ACBCE982B83D22E0059D5F9 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACBCE972B83D22E0059D5F9 /* SecureStorage.swift */; };
 		2AED64E82B86218A00EB61DD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED64E72B86218A00EB61DD /* ProfileViewController.swift */; };
@@ -44,6 +45,7 @@
 				2A249C2D2FE18889004C8B05 /* Reach5 in Frameworks */,
 				2A249C332FE188B2004C8B05 /* Reach5Facebook in Frameworks */,
 				2A249C302FE1889D004C8B05 /* Reach5Google in Frameworks */,
+				2A249C362FE18A6D004C8B05 /* Reach5Future in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +106,7 @@
 				2A249C2C2FE18889004C8B05 /* Reach5 */,
 				2A249C2F2FE1889D004C8B05 /* Reach5Google */,
 				2A249C322FE188B2004C8B05 /* Reach5Facebook */,
+				2A249C352FE18A6D004C8B05 /* Reach5Future */,
 			);
 			productName = DemoSharedCredentials;
 			productReference = 2A2192962B83A7CC00DDF153 /* DemoSharedCredentials.app */;
@@ -137,6 +140,7 @@
 				2A249C2B2FE18889004C8B05 /* XCRemoteSwiftPackageReference "reachfive-ios" */,
 				2A249C2E2FE1889D004C8B05 /* XCRemoteSwiftPackageReference "reachfive-ios-google" */,
 				2A249C312FE188B2004C8B05 /* XCRemoteSwiftPackageReference "reachfive-ios-facebook" */,
+				2A249C342FE18A6D004C8B05 /* XCRemoteSwiftPackageReference "reachfive-ios-future" */,
 			);
 			productRefGroup = 2A2192972B83A7CC00DDF153 /* Products */;
 			projectDirPath = "";
@@ -429,6 +433,14 @@
 				minimumVersion = 8.0.1;
 			};
 		};
+		2A249C342FE18A6D004C8B05 /* XCRemoteSwiftPackageReference "reachfive-ios-future" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReachFive/reachfive-ios-future";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -446,6 +458,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A249C312FE188B2004C8B05 /* XCRemoteSwiftPackageReference "reachfive-ios-facebook" */;
 			productName = Reach5Facebook;
+		};
+		2A249C352FE18A6D004C8B05 /* Reach5Future */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A249C342FE18A6D004C8B05 /* XCRemoteSwiftPackageReference "reachfive-ios-future" */;
+			productName = Reach5Future;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

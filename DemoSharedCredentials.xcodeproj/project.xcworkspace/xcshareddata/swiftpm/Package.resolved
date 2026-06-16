@@ -1,5 +1,5 @@
 {
-  "originHash" : "d25785653d8adddf9d127c587a42a15c679ec238dd61e92996be551bc78414e0",
+  "originHash" : "784359ced5b1168f0dc380ea324031e8e7e2fa0c0f5391d4a561dc54edc7b91d",
   "pins" : [
     {
       "identity" : "appauth-ios",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "2781038865a80e2c425a1da12cc1327bcd56501f",
         "version" : "1.7.6"
+      }
+    },
+    {
+      "identity" : "brightfutures",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Thomvis/BrightFutures.git",
+      "state" : {
+        "revision" : "fa66fa183dce7196d431244d0215748cd14c5758",
+        "version" : "8.2.0"
       }
     },
     {
@@ -62,6 +71,15 @@
       "state" : {
         "revision" : "91e90d409fb2d3c82bd8710994d7bae8061bf142",
         "version" : "8.0.1"
+      }
+    },
+    {
+      "identity" : "reachfive-ios-future",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ReachFive/reachfive-ios-future",
+      "state" : {
+        "revision" : "dd0c7aa1452135a99a9f817b9f2fc9b63ce46a85",
+        "version" : "10.0.1"
       }
     },
     {

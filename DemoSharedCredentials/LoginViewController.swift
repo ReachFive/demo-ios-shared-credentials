@@ -1,9 +1,10 @@
 import UIKit
 import AuthenticationServices
 import Reach5
+import Reach5Future
 
 class LoginViewController: UIViewController {
-    var enteringForegroung: NSObjectProtocol?
+    var enteringForeground: NSObjectProtocol?
 
     @IBOutlet var SeConnecterAAutre: UIButton!
     @IBOutlet var SeConnecter: UIButton!
@@ -15,7 +16,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        enteringForegroung = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: nil) { _ in
+        enteringForeground = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: nil) { _ in
             print("willEnterForegroundNotification")
             self.showAndHide()
         }
@@ -111,7 +112,13 @@ class LoginViewController: UIViewController {
 
         AppDelegate.reachfive().login(withRequest: NativeLoginRequest(anchor: self.view.window!), usingModalAuthorizationFor: types, display: .Always)
             .onSuccess { token in
-                self.goToProfile(token: token)
+                switch token {
+                case .AchievedLogin(let authToken):
+                    self.goToProfile(token: authToken)
+
+                case .OngoingStepUp:
+                    print("Step-up required")
+                }
             }
             .onFailure { ReachFiveError in
                 print(ReachFiveError)
