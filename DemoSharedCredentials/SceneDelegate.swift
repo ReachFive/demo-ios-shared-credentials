@@ -20,13 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
         print("scene(_:continue:) \(userActivity.activityType)")
-        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
-              let url = userActivity.webpageURL else { return }
-
-        // 1) Notre provider custom (retour en lien universel, iOS < 17.4) a-t-il un login en attente ?
-        if UniversalLinkProvider.pending?.handleUniversalLink(url) == true { return }
-
-        // 2) Sinon, laisser le SDK Reach5 / les autres providers traiter l'activité.
+        // Le SDK route l'activité vers tous les providers, dont notre UniversalLinkProvider.
         _ = AppDelegate.reachfive().application(UIApplication.shared, continue: userActivity) { _ in }
     }
     

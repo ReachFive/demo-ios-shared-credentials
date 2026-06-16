@@ -6,9 +6,6 @@ import Reach5Future
 class LoginViewController: UIViewController {
     var enteringForeground: NSObjectProtocol?
 
-    /// Retenu le temps du flux : sinon le provider est désalloué pendant que la web sheet est ouverte.
-    var universalLinkProvider: UniversalLinkProvider?
-
     @IBOutlet var SeConnecterAAutre: UIButton!
     @IBOutlet var SeConnecter: UIButton!
     @IBOutlet var safari: UIButton!
@@ -90,25 +87,21 @@ class LoginViewController: UIViewController {
 
     // For testing purposes
     func thirdPartySession() {
-        print("connectWithSafari — provider à retour en lien universel")
-
-        // TODO: renseigner le nom du provider et le host/path du lien universel de retour.
-        let provider = UniversalLinkProvider(
-            reachfive: AppDelegate.reachfive(),
-            providerName: "monProvider",
-            callbackHost: "integ-qa-fonctionnelle.reach5.net",
-            callbackPath: "/",
-            presentationContextProvider: self)
-        self.universalLinkProvider = provider
-
-        provider.login(origin: "thirdPartySession") { [weak self] result in
-            self?.universalLinkProvider = nil
-            switch result {
-            case .success(let token):
-                self?.goToProfile(token: token)
-            case .failure(let error):
-                print(error)
-            }
+        print("connectWithSafari")
+        print(AppDelegate.reachfive().getProviders())
+        // Récupéré comme n'importe quel autre provider : c'est le SDK qui a instancié
+        // notre UniversalLinkProvider (via UniversalLinkProviderCreator) au lieu du DefaultProvider.
+        if let provider = AppDelegate.reachfive().getProvider(name: "monProvider") {
+            print(type(of: provider))
+            provider.login(scope: nil, origin: "thirdPartySession", viewController: self)
+                .onSuccess { token in
+                    self.goToProfile(token: token)
+                }
+                .onFailure { ReachFiveError in
+                    print(ReachFiveError)
+                }
+        } else {
+            print("no provider")
         }
     }
 

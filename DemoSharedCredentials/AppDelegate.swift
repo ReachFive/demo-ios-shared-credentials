@@ -21,7 +21,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static let shared = SecureStorage(group: Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String + "com.reach5.SharedItems")
 
     let reachfive = ReachFive(sdkConfig: sdkLocal,
-                              providersCreators: [FacebookProvider(variant: "variant_1"), GoogleProvider(variant: "one_tap"), /*WeChatProvider()*/],
+                              providersCreators: [
+                                FacebookProvider(variant: "variant_1"),
+                                GoogleProvider(variant: "one_tap"),
+                                // TODO: renseigner le name (et la variant) du provider à retour en lien universel,
+                                // tels que configurés côté Reach5. Le host/path du lien sont déduits de la config serveur.
+                                UniversalLinkProviderCreator(name: "monProvider", variant: "default", reachfive: AppDelegate.reachfive()),
+                                /*WeChatProvider()*/
+                              ],
                               storage: local)
 
     static func reachfive() -> ReachFive {
