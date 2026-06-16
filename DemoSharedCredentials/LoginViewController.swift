@@ -71,32 +71,31 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func connectWithSafari(_ sender: Any) {
-        firstPartySession()
+        Task { await firstPartySession() }
     }
 
-    func firstPartySession() {
+    func firstPartySession() async {
         print("connectWithSafari")
-        AppDelegate.reachfive().webviewLogin(WebviewLoginRequest(presentationContextProvider: self))
-            .onSuccess { token in
-                self.goToProfile(token: token)
-            }.onFailure { ReachFiveError in
-                print(ReachFiveError)
-            }
+        do {
+            let token = try await AppDelegate.reachfive().webviewLogin(WebviewLoginRequest(presentationContextProvider: self))
+            self.goToProfile(token: token)
+        } catch {
+            print(error)
+        }
     }
 
     // For testing purposes
-    func thirdPartySession() {
+    func thirdPartySession() async {
         print("connectWithSafari")
         print(AppDelegate.reachfive().getProviders())
         if let provider = AppDelegate.reachfive().getProvider(name: "facebook") {
             print(type(of: provider))
-            provider.login(scope: nil, origin: "thirdPartySession", viewController: self)
-                .onSuccess { token in
-                    self.goToProfile(token: token)
-                }
-                .onFailure { ReachFiveError in
-                    print(ReachFiveError)
-                }
+            do {
+                let token = try await provider.login(scope: nil, origin: "thirdPartySession", viewController: self)
+                self.goToProfile(token: token)
+            } catch {
+                print(error)
+            }
         } else {
             print("no provider")
         }
@@ -104,18 +103,21 @@ class LoginViewController: UIViewController {
 
     @IBAction func connectWithCredential(_ sender: Any) {
         print("connectWithCredential")
-        var types: [ModalAuthorization] = [.Password]
+//        var types: [ModalAuthorization] = [.Password]
+        var types: [ModalAuthorization] = []
         if #available(iOS 16.0, *) {
             types.append(.Passkey)
         }
-
-        AppDelegate.reachfive().login(withRequest: NativeLoginRequest(anchor: self.view.window!), usingModalAuthorizationFor: types, display: .Always)
-            .onSuccess { token in
-                self.goToProfile(token: token)
+        Task {
+            do {
+                let flow = try await AppDelegate.reachfive().login(withRequest: NativeLoginRequest(anchor: self.view.window!), usingModalAuthorizationFor: types, display: .Always)
+                if case let LoginFlow.AchievedLogin(token) = flow {
+                    self.goToProfile(token: token)
+                }
+            } catch {
+                print(error)
             }
-            .onFailure { ReachFiveError in
-                print(ReachFiveError)
-            }
+        }
     }
 
     @IBAction func reloadData(_ sender: Any) {
