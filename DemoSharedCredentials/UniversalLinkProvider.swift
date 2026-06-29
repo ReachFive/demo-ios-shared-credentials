@@ -2,51 +2,62 @@ import UIKit
 import AuthenticationServices
 import Reach5
 
-/// Provider qui gère un retour en **lien universel** (https) au lieu d'un custom scheme — cas non
-/// supporté par `DefaultProvider`/`webviewLogin()` du SDK (≤ 10.x), qui crée une
-/// `ASWebAuthenticationSession(url:callbackURLScheme:)` ne matchant que les custom schemes.
+/// Provider de démonstration pour le cas — non géré par `DefaultProvider`/`webviewLogin()` du SDK
+/// 10.x — où le provider termine son flux par un **lien universel** (https) au lieu du custom scheme
+/// attendu.
 ///
-/// En conformant au protocole `Provider`, ce provider s'intègre exactement comme les autres :
-///  - il est instancié par le SDK via `UniversalLinkProviderCreator` (au lieu du `DefaultProvider`
-///    générique), dès lors que son `name` correspond au provider renvoyé par la config serveur ;
-///  - il est récupérable par `reachfive.getProvider(name:)` / `getProviders()` ;
-///  - `login(scope:origin:viewController:)` (et donc la variante `Future` de Reach5Future) marche
-///    de la même façon ;
-///  - il reçoit le lien universel via `application(_:continue:restorationHandler:)`, routé par le SDK.
+/// ## Le problème
+/// `webviewLogin()` crée une `ASWebAuthenticationSession(url:callbackURLScheme:)` qui ne reconnaît
+/// que les **custom schemes**. Dans la topologie réelle, c'est une **app tierce** (p. ex. la banque
+/// qui réalise la vérification d'identité) qui rouvre l'app hôte via le lien universel porteur du
+/// `code`. Ce lien est livré par le système à `application(_:continue:)` pendant que la session web
+/// est encore ouverte — le `completionHandler` de la session, lui, ne se déclenche jamais pour lui.
 ///
-/// Deux stratégies, choisies automatiquement :
-///  - **iOS 17.4+** : `ASWebAuthenticationSession.Callback.https` matche nativement le lien universel
-///    → `completionHandler` classique, aucune plomberie SceneDelegate nécessaire.
-///  - **iOS < 17.4** : la session ne matche jamais le https ; le lien universel arrive par
-///    `application(_:continue:)`. On annule alors la session, on extrait le `code`, et on termine
-///    via `authWithCode`.
+/// > Le callback `.https` d'`ASWebAuthenticationSession` (iOS 17.4+) **ne résout pas** ce cas : il
+/// > n'intercepte que les redirections naviguées *à l'intérieur* de la web view de la session, pas un
+/// > lien universel ouvert depuis une autre app. On ne l'utilise donc pas — une seule stratégie suffit.
+///
+/// ## La stratégie (unique)
+/// 1. On présente la session web sur le custom scheme : elle ne sert qu'à afficher l'UI et à remonter
+///    l'**annulation** utilisateur (son `completionHandler` ne verra jamais de succès).
+/// 2. Le succès arrive hors-bande via `application(_:continue:)` : on en extrait le `code`, on annule
+///    la session restée ouverte, puis on échange le code contre un token via `authWithCode` (PKCE).
+///
+/// En conformant au protocole `Provider`, ce provider s'intègre comme les autres :
+///  - instancié par le SDK via `UniversalLinkProviderCreator` dès que son `name` correspond au
+///    provider renvoyé par la config serveur (sinon le SDK retombe sur le `DefaultProvider`) ;
+///  - récupérable via `reachfive.getProvider(name:)` / `getProviders()` ;
+///  - `login(...)` (et la variante `Future` de Reach5Future) marche à l'identique.
+///
+/// ## Prérequis côté app hôte
+///  - un Associated Domain `applinks:<host>` (+ apple-app-site-association servi par le domaine) ;
+///  - le forward de `scene(_:continue:)` / `application(_:continue:)` vers
+///    `reachfive.application(_:continue:…)`, qui route l'activité vers ce provider.
+///
+/// > Note : depuis la branche `feature/CA-6191_b_connect`, le SDK gère ce cas **nativement** dans
+/// > `DefaultProvider` (en passant le lien universel comme `redirect_uri` pour `/authorize` ET
+/// > `/token`). Ce fichier reste un exemple pédagogique pour les intégrateurs encore sur le SDK 10
+/// > publié ; il n'utilise que des primitives publiques (`Pkce`, `buildAuthorizeURL`, `authWithCode`).
 public final class UniversalLinkProvider: NSObject, Provider {
 
     public let name: String
 
     private let reachfive: ReachFive
-    /// Host du lien universel qui clôt le flux et porte le `code` (déduit de `providerConfig.universalLink`).
-    private let callbackHost: String
-    /// Path du lien universel (utilisé par le callback `.https` natif, iOS 17.4+).
-    private let callbackPath: String
+
+    /// Lien universel qui clôt le flux et porte le `code`, déduit de `providerConfig.universalLink`
+    /// (config serveur). Un lien entrant n'est accepté que si son host correspond et que son path le
+    /// préfixe — même filtre que le `DefaultProvider` natif. `nil` ⇒ le provider n'intercepte rien.
+    private let universalLink: URL?
 
     // État du login en cours — toujours manipulé sur le main thread.
     private var session: ASWebAuthenticationSession?
     private var pkce: Pkce?
     private var continuation: CheckedContinuation<AuthToken, Error>?
 
-    public init(reachfive: ReachFive,
-                providerConfig: ProviderConfig,
-                callbackHost: String? = nil,
-                callbackPath: String? = nil) {
+    public init(reachfive: ReachFive, providerConfig: ProviderConfig, universalLink: URL? = nil) {
         self.reachfive = reachfive
         self.name = providerConfig.provider
-
-        // Le SDK connaît déjà le lien universel côté config serveur : on le réutilise.
-        let link = providerConfig.universalLink.flatMap { URL(string: $0) }
-        self.callbackHost = callbackHost ?? link?.host ?? ""
-        let path = callbackPath ?? link?.path ?? "/"
-        self.callbackPath = path.isEmpty ? "/" : path
+        self.universalLink = universalLink ?? providerConfig.universalLink.flatMap { URL(string: $0) }
     }
 
     // MARK: - Provider.login
@@ -65,24 +76,13 @@ public final class UniversalLinkProvider: NSObject, Provider {
 
                 let url = self.reachfive.buildAuthorizeURL(pkce: pkce, scope: scope, origin: origin, provider: self.name)
 
-                let session: ASWebAuthenticationSession
-                if #available(iOS 17.4, *) {
-                    // Chemin natif : la session matche directement le callback https.
-                    session = ASWebAuthenticationSession(
-                        url: url,
-                        callback: .https(host: self.callbackHost, path: self.callbackPath)) { [weak self] callbackURL, error in
-                            self?.handleCallback(url: callbackURL, error: error)
-                        }
-                } else {
-                    // Repli : le completionHandler ne servira qu'à capter l'annulation utilisateur ;
-                    // le succès arrivera par application(_:continue:).
-                    session = ASWebAuthenticationSession(
-                        url: url,
-                        callbackURLScheme: self.reachfive.sdkConfig.baseScheme) { [weak self] callbackURL, error in
-                            self?.handleCallback(url: callbackURL, error: error)
-                        }
-                }
-
+                // Session sur le custom scheme : elle héberge l'UI web et ne remonte que l'annulation.
+                // Le succès, lui, revient par lien universel via application(_:continue:).
+                let session = ASWebAuthenticationSession(
+                    url: url,
+                    callbackURLScheme: self.reachfive.sdkConfig.baseScheme) { [weak self] callbackURL, error in
+                        self?.handleCallback(url: callbackURL, error: error)
+                    }
                 session.presentationContextProvider = presentationContextProvider
                 session.prefersEphemeralWebBrowserSession = false
                 self.session = session
@@ -91,39 +91,37 @@ public final class UniversalLinkProvider: NSObject, Provider {
         }
     }
 
-    // MARK: - Provider : routage du lien universel (chemin iOS < 17.4)
+    // MARK: - Provider : réception du lien universel (chemin de succès)
 
     public func application(_ application: UIApplication,
                             continue userActivity: NSUserActivity,
                             restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         guard continuation != nil,
+              let universalLink,
               userActivity.activityType == NSUserActivityTypeBrowsingWeb,
               let url = userActivity.webpageURL,
-              url.host == callbackHost else {
+              url.host == universalLink.host,
+              url.path.hasPrefix(universalLink.path) else {
             return false
         }
         handleCallback(url: url, error: nil)
         return true
     }
 
-    public func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
-        false
-    }
-
-    public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        true
-    }
-
+    // Hooks de cycle de vie requis par le protocole — sans objet pour ce provider.
+    public func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool { false }
+    public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { true }
     public func applicationDidBecomeActive(_ application: UIApplication) {}
-
     public func logout() {}
 
     // MARK: - Résolution (point unique, garde-fou contre la double exécution)
 
-    /// Appelé soit par le `completionHandler` de la session (chemin natif / annulation),
-    /// soit par `application(_:continue:)` (chemin lien universel < 17.4). Toujours sur le main thread.
+    /// Appelé soit par `application(_:continue:)` (succès, lien universel), soit par le
+    /// `completionHandler` de la session (annulation / erreur). Toujours sur le main thread.
     private func handleCallback(url: URL?, error: Error?) {
         guard let continuation = self.continuation else { return }
+        // Neutralisé avant cancel() : la session peut rappeler son completionHandler de façon
+        // ré-entrante (annulation), mais la garde ci-dessus l'ignorera alors.
         self.continuation = nil
         let runningSession = self.session
         self.session = nil
