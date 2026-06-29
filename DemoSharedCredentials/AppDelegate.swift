@@ -25,8 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 FacebookProvider(variant: "variant_1"),
                                 GoogleProvider(variant: "one_tap"),
                                 // TODO: renseigner le name (et la variant) du provider à retour en lien universel,
-                                // tels que configurés côté Reach5. Le host/path du lien sont déduits de la config serveur.
-                                UniversalLinkProviderCreator(name: "monProvider", variant: "default", reachfive: AppDelegate.reachfive()),
+                                // tels que configurés côté Reach5.
+                                UniversalLinkProviderCreator(name: "monProvider", variant: "default", universalLink: "https://universal.link/", reachfive: AppDelegate.reachfive()),
                                 /*WeChatProvider()*/
                               ],
                               storage: local)

@@ -162,22 +162,24 @@ public final class UniversalLinkProvider: NSObject, Provider {
 public final class UniversalLinkProviderCreator: ProviderCreator {
     public let name: String
     public let variant: String?
+    public let universalLink: URL?
 
     /// Résolu paresseusement : l'instance `ReachFive` n'existe pas encore quand le creator est
     /// construit (il est passé à l'init de `ReachFive`). `create(...)` n'est appelé que plus tard,
     /// pendant `initialize()`, quand l'instance est disponible.
     private let reachfiveResolver: () -> ReachFive
 
-    public init(name: String, variant: String? = nil, reachfive: @escaping @autoclosure () -> ReachFive) {
+    public init(name: String, variant: String? = nil, universalLink: String, reachfive: @escaping @autoclosure () -> ReachFive) {
         self.name = name
         self.variant = variant
         self.reachfiveResolver = reachfive
+        self.universalLink = URL(string: universalLink)
     }
 
     public func create(sdkConfig: SdkConfig,
                        providerConfig: ProviderConfig,
                        reachFiveApi: ReachFiveApi,
                        clientConfigResponse: ClientConfigResponse) -> Provider {
-        UniversalLinkProvider(reachfive: reachfiveResolver(), providerConfig: providerConfig)
+        UniversalLinkProvider(reachfive: reachfiveResolver(), providerConfig: providerConfig, universalLink: universalLink)
     }
 }
