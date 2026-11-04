@@ -414,7 +414,7 @@
 			repositoryURL = "https://github.com/ReachFive/reachfive-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.0.1;
+				minimumVersion = 11.0.1;
 			};
 		};
 		2A249C2E2FE1889D004C8B05 /* XCRemoteSwiftPackageReference "reachfive-ios-google" */ = {
@@ -422,7 +422,7 @@
 			repositoryURL = "https://github.com/ReachFive/reachfive-ios-google";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 8.0.1;
+				minimumVersion = 9.0.0;
 			};
 		};
 		2A249C312FE188B2004C8B05 /* XCRemoteSwiftPackageReference "reachfive-ios-facebook" */ = {
@@ -430,7 +430,7 @@
 			repositoryURL = "https://github.com/ReachFive/reachfive-ios-facebook";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 8.0.1;
+				minimumVersion = 9.0.0;
 			};
 		};
 		2A249C342FE18A6D004C8B05 /* XCRemoteSwiftPackageReference "reachfive-ios-future" */ = {
@@ -438,7 +438,7 @@
 			repositoryURL = "https://github.com/ReachFive/reachfive-ios-future";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.0.1;
+				minimumVersion = 11.0.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
