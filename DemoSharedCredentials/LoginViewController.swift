@@ -91,7 +91,12 @@ class LoginViewController: UIViewController {
         print(AppDelegate.reachfive().getProviders())
         if let provider = AppDelegate.reachfive().getProvider(name: "facebook") {
             print(type(of: provider))
-            provider.login(scope: nil, origin: "thirdPartySession", viewController: self)
+            provider
+                .login(
+                    scope: nil,
+                    origin: "thirdPartySession",
+                    presenting: Presentation(from: self)
+                )
                 .onSuccess { token in
                     self.goToProfile(token: token)
                 }
@@ -110,7 +115,7 @@ class LoginViewController: UIViewController {
             types.append(.Passkey)
         }
 
-        AppDelegate.reachfive().login(withRequest: NativeLoginRequest(anchor: self.view.window!), usingModalAuthorizationFor: types, display: .Always)
+        AppDelegate.reachfive().login(withRequest: NativeLoginRequest(presenting: Presentation(from: self)), usingModalAuthorizationFor: types, display: .Always)
             .onSuccess { token in
                 switch token {
                 case .AchievedLogin(let authToken):
