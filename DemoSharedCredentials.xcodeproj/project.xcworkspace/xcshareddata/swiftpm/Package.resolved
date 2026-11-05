@@ -114,8 +114,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ReachFive/reachfive-ios-future",
       "state" : {
-        "revision" : "d019ecdd66b293696510fc941c59dbf92e83ff85",
-        "version" : "11.1.1"
+        "revision" : "db70cd1aaa96b24220965681f65578df68c6e8af",
+        "version" : "11.2.0"
       }
     },
     {
